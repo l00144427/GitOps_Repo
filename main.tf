@@ -10,6 +10,7 @@ terraform {
 # Use AWS Terraform provider
 provider "aws" {
   region = "us-east-1"
+  shared_credentials_file = "/var/jenkins_home/.aws/credentials"
 }
 
 # Create EC2 instance
