@@ -9,7 +9,7 @@ terraform {
 
 # Use AWS Terraform provider
 provider "aws" {
-  region = "us-east-1"
+  region = "us-east-2"
   #assume_role {
   #  role_arn     = "arn:aws:iam::279620518215:role/S3_Role"
   #  session_name = "SESSION_NAME"
