@@ -9,6 +9,13 @@ try {
     }
   }
 
+  agent {
+    docker {
+      image 'hashicorp/terraform:light'
+      args '--entrypoint='
+    }
+  }
+
   // Run terraform init
   stage('init') {
     node {
