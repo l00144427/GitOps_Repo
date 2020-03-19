@@ -11,12 +11,6 @@ try {
 
   // Run terraform init
   stage('init') {
-    agent {
-      docker {
-        image 'hashicorp/terraform:light'
-        args '--entrypoint='
-      }
-    }
     node {
       withCredentials([[
         $class: 'AmazonWebServicesCredentialsBinding',
