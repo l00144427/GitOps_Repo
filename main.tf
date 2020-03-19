@@ -4,8 +4,8 @@ terraform {
     bucket = "terraform-bucket-l00144427"
     key    = "terraform.tfstate"
     region = "us-east-1"
-    access_key = "AKIAZHKULKPYHQ3AGXXU"
-    secret_key = "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"
+  #  access_key = "AKIAZHKULKPYHQ3AGXXU"
+  #  secret_key = "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"
   }
 }
 
@@ -17,8 +17,8 @@ provider "aws" {
   #  session_name = "SESSION_NAME"
   #  external_id  = "EXTERNAL_ID"
   #}
-  access_key = "AKIAZHKULKPYHQ3AGXXU"
-  secret_key = "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"
+  #access_key = "AKIAZHKULKPYHQ3AGXXU"
+  #secret_key = "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"
   # shared_credentials_file = "/var/jenkins_home/.aws/credentials"
 }
 
