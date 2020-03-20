@@ -4,21 +4,12 @@ terraform {
     bucket = "terraform-bucket-l00144427-student"
     key    = "terraform.tfstate"
     region = "eu-west-1"
-  #  access_key = "AKIAZHKULKPYHQ3AGXXU"
-  #  secret_key = "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"
   }
 }
 
 # Use AWS Terraform provider
 provider "aws" {
   region = "eu-west-1"
-  #assume_role {
-  #  role_arn     = "arn:aws:iam::279620518215:role/S3_Role"
-  #  session_name = "SESSION_NAME"
-  #  external_id  = "EXTERNAL_ID"
-  #}
-  #access_key = "AKIAZHKULKPYHQ3AGXXU"
-  #secret_key = "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"
   # shared_credentials_file = "/var/jenkins_home/.aws/credentials"
 }
 
