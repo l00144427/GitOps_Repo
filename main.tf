@@ -10,6 +10,7 @@ terraform {
 # Use AWS Terraform provider
 provider "aws" {
   region = "eu-west-1"
+  version = "2.54"
 }
 
 # Create EC2 instance
@@ -20,21 +21,6 @@ resource "aws_instance" "default" {
   vpc_security_group_ids = [aws_security_group.default.id]
   source_dest_check      = false
   instance_type          = var.instance_type
-}
-
-provisioner "file" {
-  source="install_nginx.sh"
-  destination="/tmp/install_nginx.sh"
-}
-
-provisioner "remote-exec" {
-  inline=[
-  "chmod +x /tmp/install_nginx.sh",
-  "sudo /tmp/install_nginx.sh"
-  ]
-  tags = {
-    Name = "terraform-default"
-  }
 }
 
 # Create Security Group for EC2
