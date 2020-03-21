@@ -21,6 +21,16 @@ resource "aws_instance" "default" {
   vpc_security_group_ids = [aws_security_group.default.id]
   source_dest_check      = false
   instance_type          = var.instance_type
+
+  # Ansible requires Python to be installed on the remote machine as well as the local machine.
+  provisioner "remote-exec" {
+    inline = ["sudo apt-get -qq install python -y"]
+  }
+  
+  connection {
+    private_key = "${file(var.key_name)}"
+    user        = "ubuntu"
+  }
 }
 
 # Create Security Group for EC2

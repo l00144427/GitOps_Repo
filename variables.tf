@@ -10,8 +10,6 @@ variable "key_name" {
 variable "instance_type" {
   description = "AWS instance"
   default     = "t2.micro"
-  volume_type = "gp2"
-  volume_size = "30"
 }
 
 variable "ami" {
