@@ -14,7 +14,7 @@ variable "instance_type" {
 }
 
 variable "ami" {
-  description = "Base AMI to launch the instance"
+  description = "AMI used to launch the instance"
 
   # ubuntu-xenial-16.04-amd64-server-20200129
   default = "ami-0f630a3f40b1eb0b8"
