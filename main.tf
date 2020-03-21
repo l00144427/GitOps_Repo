@@ -10,7 +10,6 @@ terraform {
 # Use AWS Terraform provider
 provider "aws" {
   region = "eu-west-1"
-  # shared_credentials_file = "/var/jenkins_home/.aws/credentials"
 }
 
 # Create EC2 instance
@@ -22,6 +21,15 @@ resource "aws_instance" "default" {
   source_dest_check      = false
   instance_type          = var.instance_type
 
+provisioner "file" {
+  source="install_nginx.sh"
+  destination="/tmp/install_nginx.sh"
+}
+provisioner "remote-exec" {
+  inline=[
+  "chmod +x /tmp/install_nginx.sh",
+  "sudo /tmp/install_nginx.sh"
+]
   tags = {
     Name = "terraform-default"
   }
@@ -35,14 +43,14 @@ resource "aws_security_group" "default" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["109.78.37.103/32"]
   }
 
   ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["109.78.37.103/32"]
   }
 
 }
