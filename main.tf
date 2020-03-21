@@ -20,16 +20,18 @@ resource "aws_instance" "default" {
   vpc_security_group_ids = [aws_security_group.default.id]
   source_dest_check      = false
   instance_type          = var.instance_type
+}
 
 provisioner "file" {
   source="install_nginx.sh"
   destination="/tmp/install_nginx.sh"
 }
+
 provisioner "remote-exec" {
   inline=[
   "chmod +x /tmp/install_nginx.sh",
   "sudo /tmp/install_nginx.sh"
-]
+  ]
   tags = {
     Name = "terraform-default"
   }
@@ -52,5 +54,4 @@ resource "aws_security_group" "default" {
     protocol    = "tcp"
     cidr_blocks = ["109.78.37.103/32"]
   }
-
 }
