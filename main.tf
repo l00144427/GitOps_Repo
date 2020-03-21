@@ -28,7 +28,8 @@ resource "aws_instance" "default" {
   }
   
   connection {
-    private_key = "${file(var.key_name)}"
+    private_key = "var.key_name"
+    host        = "var.host"
     user        = "ubuntu"
   }
 }
