@@ -21,7 +21,7 @@ resource "aws_instance" "default" {
   vpc_security_group_ids = [aws_security_group.default.id]
   source_dest_check      = false
   instance_type          = var.instance_type
-  host_id                = ec2-18-202-223-165.eu-west-1.compute.amazonaws.com
+  #host_id                = ec2-18-202-223-165.eu-west-1.compute.amazonaws.com
 
   # Ansible requires Python to be installed on the remote machine as well as the local machine.
   provisioner "remote-exec" {
