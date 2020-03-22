@@ -21,6 +21,7 @@ resource "aws_instance" "default" {
   vpc_security_group_ids = [aws_security_group.default.id]
   source_dest_check      = false
   instance_type          = var.instance_type
+  volume_size            = 30
   
   connection {
     private_key = "var.key_name"
