@@ -3,7 +3,7 @@ terraform {
   backend "s3" {
     bucket = "terraform-bucket-l00144427-student"
     key    = "terraform.tfstate"
-    region = "eu-west-1a"
+    region = "eu-west-1"
   }
 }
 
