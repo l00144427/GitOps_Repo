@@ -21,16 +21,6 @@ resource "aws_instance" "default" {
   vpc_security_group_ids = [aws_security_group.default.id]
   source_dest_check      = false
   instance_type          = var.instance_type
-
-  # Ansible requires Python to be installed on the remote machine as well as the local machine.
-  #provisioner "remote-exec" {
-  #  inline = ["sudo apt-get -qq install python -y"]
-  #}
-
-  # This is where we configure the instance with ansible-playbook
-  provisioner "local-exec" {
-    command = "sleep 120; ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ubuntu -i '${aws_instance.default.*.public_ip},' master.yml"
-  }
   
   connection {
     private_key = "var.key_name"
@@ -70,4 +60,14 @@ resource "aws_security_group" "default" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+}
+
+# Ansible requires Python to be installed on the remote machine as well as the local machine.
+#provisioner "remote-exec" {
+#  inline = ["sudo apt-get -qq install python -y"]
+#}
+
+# This is where we configure the instance with ansible-playbook
+provisioner "local-exec" {
+  command = "sleep 120; ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ubuntu -i '${aws_instance.default.*.public_ip},' master.yml"
 }
