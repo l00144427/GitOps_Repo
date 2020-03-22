@@ -21,14 +21,12 @@ resource "aws_instance" "default" {
   vpc_security_group_ids = [aws_security_group.default.id]
   source_dest_check      = false
   instance_type          = var.instance_type
-  volume_size            = 30
   
   connection {
     private_key = "var.key_name"
     host        = "default"
     user        = "ubuntu"
-  
-  
+
 # Ansible requires Python to be installed on the remote machine as well as the local machine.
 #provisioner "remote-exec" {
 #  inline = ["sudo apt-get -qq install python -y"]
