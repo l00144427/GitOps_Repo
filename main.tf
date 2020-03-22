@@ -3,7 +3,7 @@ terraform {
   backend "s3" {
     bucket = "terraform-bucket-l00144427-student"
     key    = "terraform.tfstate"
-    region = "eu-west-1"
+    region = "eu-west-1a"
   }
 }
 
@@ -23,13 +23,14 @@ resource "aws_instance" "default" {
   instance_type          = var.instance_type
 
   # Ansible requires Python to be installed on the remote machine as well as the local machine.
-  provisioner "local-exec" {
-    command = <<EOH
-curl -o jq https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64
-chmod 0755 jq
-# Do some kind of JSON processing with ./jq
-EOH
-  }
+  #provisioner "remote-exec" {
+  #  inline = ["sudo apt-get -qq install python -y"]
+  #}
+
+  # This is where we configure the instance with ansible-playbook
+  #  provisioner "local-exec" {
+  #      command = "sleep 120; ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ubuntu -i '${aws_instance.default.public_ip},' master.yml"
+  #  }
   
   connection {
     private_key = "var.key_name"
@@ -50,9 +51,23 @@ resource "aws_security_group" "default" {
   }
 
   ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["172.31.9.178/32"]
+  }
+
+  ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
     cidr_blocks = ["109.78.37.103/32"]
+  }
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["172.31.9.178/32"]
   }
 }
