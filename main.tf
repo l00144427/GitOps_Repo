@@ -33,10 +33,10 @@ resource "aws_instance" "default" {
 #  inline = ["sudo apt-get -qq install python -y"]
 #}
 
-# This is where we configure the instance with ansible-playbook
-provisioner "local-exec" {
-  command = "sleep 120; ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ubuntu -i '${aws_instance.default.*.public_ip},' master.yml"
-}
+  # This is where we configure the instance with ansible-playbook
+    provisioner "local-exec" {
+      command = "sleep 120; ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ubuntu -i '${aws_instance.default.*.public_ip},' master.yml"
+    }
   }
 }
 
