@@ -3,5 +3,5 @@ output "instance_ips" {
 }
 
 output "instance_name" {
-  value = ["${aws_instance.default.*.hostname}"]
+  value = ["${aws_instance.default.*.host_id}"]
 }
