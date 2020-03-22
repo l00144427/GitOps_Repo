@@ -29,7 +29,7 @@ resource "aws_instance" "default" {
   
   connection {
     private_key = "var.key_name"
-  #  dfd  host        = "default.hostname"
+    host        = "default.instance_name"
     user        = "ubuntu"
   }
 }
