@@ -21,11 +21,14 @@ resource "aws_instance" "default" {
   vpc_security_group_ids = [aws_security_group.default.id]
   source_dest_check      = false
   instance_type          = var.instance_type
-  #host_id                = ec2-18-202-223-165.eu-west-1.compute.amazonaws.com
 
   # Ansible requires Python to be installed on the remote machine as well as the local machine.
-  provisioner "remote-exec" {
-    inline = ["sudo apt-get -qq install python -y"]
+  provisioner "local-exec" {
+    command = <<EOH
+curl -o jq https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64
+chmod 0755 jq
+# Do some kind of JSON processing with ./jq
+EOH
   }
   
   connection {
