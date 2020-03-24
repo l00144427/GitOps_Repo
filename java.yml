@@ -1,0 +1,15 @@
+---
+- hosts: all
+  remote_user: root
+  become: true
+
+  tasks:
+    - name: Install Java JDK 11
+      command: "{{ item }}"
+      with_items:
+        - curl -O https://download.java.net/java/GA/jdk11/9/GPL/jdk-11.0.4_linux-x64_bin.tar.gz
+        - gunzip jdk-11.0.4_linux-x64_bin.tar.gz
+        - tar -xvf jdk-11.0.4_linux-x64_bin.tar
+        - mv jdk-11.0.4 /usr/bin/
+        - ln -s /usr/bin/jdk-11.0.4/bin/java /usr/bin/java
+        - rm -rf jdk-11.0.4
