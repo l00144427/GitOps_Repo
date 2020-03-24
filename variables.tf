@@ -9,7 +9,7 @@ variable "key_name" {
 
 variable "instance_type" {
   description = "AWS instance"
-  default     = "t2.micro"
+  default     = "t2.medium"
 }
 
 variable "ami" {

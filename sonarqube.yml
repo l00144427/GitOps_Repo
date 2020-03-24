@@ -11,6 +11,11 @@
       with_items:
         - maven
 
+    - name: Copy Maven pom file
+      copy:
+        src: /home/ubuntu/pom.xml
+        dest: /home/ubuntu/pom.xml
+
     - name: Ensure sonarqube group exists
       group:
         name: sonarqube

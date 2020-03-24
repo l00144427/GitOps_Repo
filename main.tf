@@ -32,13 +32,6 @@ resource "aws_instance" "default" {
 #  inline = ["sudo apt-get -qq install python -y"]
 #}
 
-    provisioner "remote-exec" {
-      inline = [
-        "chmod +x /tmp/script.sh",
-        "/tmp/script.sh args",
-     ]
-   }
-
   # This is where we configure the instance with ansible-playbook
   #  provisioner "local-exec" {
   #    command = "sleep 120; ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ubuntu -i '${aws_instance.default.*.public_ip},' master.yml"
