@@ -32,11 +32,20 @@
         createhome: yes
         home: /home/sonarqube
 
+    - name: Create sonarqube_data volume
+      command: docker volume create --name sonarqube_data
+
+    - name: Create sonarqube_extensions volume
+      command: docker volume create --name sonarqube_extensions
+
+    - name: Create sonarqube_logs volume
+      command: docker volume create --name sonarqube_logs
+
     - name: Execute docker pull in container
       command: docker pull sonarqube
 
     - name: Execute docker sonarqube run command in container
       command: docker run -d --name sonarqube -p 9000:9000 sonarqube
 
-    - name: Execute Maven clean installwq
-      command: mvn clean install sonar:sonar
+    #- name: Execute Maven clean install
+    #  command: mvn clean install sonar:sonar
