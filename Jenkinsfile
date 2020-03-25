@@ -1,5 +1,6 @@
 // Jenkinsfile
 String credentialsId = 'awsCredentials'
+String GitHubcredentialsId = 'GitHub'
 
 try {
   stage('checkout') {
@@ -19,6 +20,7 @@ try {
         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
       ]]) {
         ansiColor('xterm') {
+          // Using TF_LOG=DEBUG here to provide greater debug logs
           sh 'TF_LOG=DEBUG terraform init'
         }
       }
@@ -74,6 +76,37 @@ try {
         }
       }
     }
+
+    // Pull the code from GitHub
+    stage('GitHub Pull') {
+	  	steps {
+		  	sh 'echo "*************************GitHub Pull*************************"'
+			  script {
+				  checkout([$class: 'GitSCM',
+   		   	  branches: [[name: '*/master']],
+    			  doGenerateSubmoduleConfigurations: false,
+    			  extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: "l00144427/GitOps_Repo"]],
+    			  submoduleCfg: [],
+   			    userRemoteConfigs: [[url: 'git@github.com:l00144427/GitOps_Repo']]
+    		  ])
+			  }
+		  }
+	  }
+
+  	stage('Reconfigure Files') {
+	   	steps {
+		    	sh '''
+			    	echo "*************************Reconfigure Files*************************"
+				    cd ${WORKSPACE}
+  				  mkdir package
+	  			  cd ${WORKSPACE}/l00144427/GitOps_Repo
+		  	//	mv services ${WORKSPACE}/package
+  			//	cd ${WORKSPACE}/package
+	  		//	touch doodle_build-${BUILD_NUMBER}.txt
+		  		  ls -ltr
+			    '''
+  		}
+  	}
   }
   currentBuild.result = 'SUCCESS'
 }
