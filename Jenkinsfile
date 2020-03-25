@@ -79,7 +79,7 @@ try {
 
     // Pull the code from GitHub
     stage('GitHub Pull') {
-	  	steps {
+	  	node {
 		  	sh 'echo "*************************GitHub Pull*************************"'
 			  script {
 				  checkout([$class: 'GitSCM',
@@ -94,7 +94,7 @@ try {
 	  }
 
   	stage('Reconfigure Files') {
-	   	steps {
+	   	node {
 		    	sh '''
 			    	echo "*************************Reconfigure Files*************************"
 				    cd ${WORKSPACE}
