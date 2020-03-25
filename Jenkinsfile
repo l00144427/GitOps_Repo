@@ -85,7 +85,7 @@ try {
 				  checkout([$class: 'GitSCM',
    		   	  branches: [[name: '*/master']],
     			  doGenerateSubmoduleConfigurations: false,
-    			  extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: "l00144427/GitOps_Repo"]],
+    			  extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: "https://github.com/l00144427/GitOps_Repo.git"]],
     			  submoduleCfg: [],
    			    userRemoteConfigs: [[url: 'git@github.com:l00144427/GitOps_Repo']]
     		  ])
