@@ -83,10 +83,8 @@ try {
 			    	echo "*************************Reconfigure Files*************************"
 				    cd ${WORKSPACE}
   				  mkdir package
-	  			  cd ${WORKSPACE}/l00144427/GitOps_Repo
-		  	//	mv services ${WORKSPACE}/package
-  			//	cd ${WORKSPACE}/package
-	  		//	touch doodle_build-${BUILD_NUMBER}.txt
+  			  	cd ${WORKSPACE}/package
+	  		  	touch doodle_build-${BUILD_NUMBER}.txt
 		  		  ls -ltr
 			    '''
   		}
