@@ -1,6 +1,6 @@
 // Jenkinsfile
 String credentialsId = 'awsCredentials'
-String GitHubcredentialsId = 'GitHub'
+String GitHubcredentialsId = 'l00144427@student.lyit.ie/******'
 
 try {
   stage('checkout') {
