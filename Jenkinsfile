@@ -77,22 +77,6 @@ try {
       }
     }
 
-    // Pull the code from GitHub
-    stage('GitHub Pull') {
-	  	node {
-		  	sh 'echo "*************************GitHub Pull*************************"'
-			  script {
-				  checkout([$class: 'GitSCM',
-   		   	  branches: [[name: '*/master']],
-    			  doGenerateSubmoduleConfigurations: false,
-    			  extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: "https://github.com/l00144427/GitOps_Repo.git"]],
-    			  submoduleCfg: [],
-   			    userRemoteConfigs: [[url: 'git@github.com:l00144427/GitOps_Repo']]
-    		  ])
-			  }
-		  }
-	  }
-
   	stage('Reconfigure Files') {
 	   	node {
 		    	sh '''
