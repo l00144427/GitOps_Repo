@@ -35,3 +35,15 @@ then
     echo "The script will now exit"
     exit 30
 fi
+
+echo "Running the Artifactory Ansible playbook"
+echo ""
+ansible-playbook artifactory.yml
+
+if [[ $? -ne 0 ]];
+then
+    echo "The Artifactory installation did not work as expected"
+    echo ""
+    echo "The script will now exit"
+    exit 30
+fi

@@ -4,12 +4,19 @@
   become: true
 
   tasks:
+    - name: Create folders
+      file:
+        path: /opt/artifactory/var/etc
+        state: directory
+
     - name: Create folders and files
+      file:
+        path: /opt/artifactory/var/etc/system.yaml
+        state: touch
+
+    - name: Change permissions
       command: "{{ item }}"
       with_items:
-        - mkdir -p /opt/artifactory/var/etc
-        - cd /opt/artifactory/var/etc
-        - touch ./system.yaml
         - chown -R 1030:1030 /opt/artifactory/var
 
     - name: Start Artifactory
