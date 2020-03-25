@@ -1,0 +1,16 @@
+---
+- hosts: all
+  remote_user: root
+  become: true
+
+  tasks:
+    - name: Create folders and files
+      command: "{{ item }}"
+      with_items:
+        - mkdir -p /opt/artifactory/var/etc
+        - cd /opt/artifactory/var/etc
+        - touch ./system.yaml
+        - chown -R 1030:1030 /opt/artifactory/var
+
+    - name: Start Artifactory
+      command: docker run --name artifactory -v /opt/artifactory/var/:/var/opt/jfrog/artifactory -d -p 8081:8081 -p 8082:8082 docker.bintray.io/jfrog/artifactory-cpp-ce:latest

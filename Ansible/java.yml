@@ -1,0 +1,20 @@
+---
+- hosts: all
+  remote_user: root
+  become: true
+
+  tasks:
+    - name: Copy Java JDK file
+      copy:
+        src: /home/ubuntu/jdk-11.0.4_linux-x64_bin.tar.gz
+        dest: /home/ubuntu/jdk-11.0.4_linux-x64_bin.tar.gz
+
+    - name: Install Java JDK 11
+      command: "{{ item }}"
+      with_items:
+        - gunzip jdk-11.0.4_linux-x64_bin.tar.gz
+        - tar -xvf jdk-11.0.4_linux-x64_bin.tar
+        - mv jdk-11.0.4 /usr/bin/
+        - ln -s /usr/bin/jdk-11.0.4/bin/java /usr/bin/java
+        - rm -rf jdk-11.0.4
+        - rm -rf /home/ubuntu/jdk-11.0.4_linux-x64_bin.tar
