@@ -1,9 +1,8 @@
 // Jenkinsfile
 String credentialsId = 'awsCredentials'
-String GitHubcredentialsId = 'l00144427@student.lyit.ie/******'
 
 try {
-  stage('checkout') {
+  stage('Code Checkout') {
     node {
       cleanWs()
       checkout scm
@@ -11,7 +10,7 @@ try {
   }
 
   // Run terraform init
-  stage('init') {
+  stage('Terraform Init') {
     node {
       withCredentials([[
         $class: 'AmazonWebServicesCredentialsBinding',
@@ -28,7 +27,7 @@ try {
   }
 
   // Run terraform plan
-  stage('plan') {
+  stage('Terraform Plan') {
     node {
       withCredentials([[
         $class: 'AmazonWebServicesCredentialsBinding',
@@ -46,7 +45,7 @@ try {
   if (env.BRANCH_NAME == 'master') {
 
     // Run terraform apply
-    stage('apply') {
+    stage('Terraform Apply') {
       node {
         withCredentials([[
           $class: 'AmazonWebServicesCredentialsBinding',
@@ -62,7 +61,7 @@ try {
     }
 
     // Run terraform show
-    stage('show') {
+    stage('Terraform Show') {
       node {
         withCredentials([[
           $class: 'AmazonWebServicesCredentialsBinding',
@@ -77,14 +76,51 @@ try {
       }
     }
 
-  	stage('Reconfigure Files') {
+  	stage('Reconfigure App Code') {
 	   	node {
 		    	sh '''
-			    	echo "*************************Reconfigure Files*************************"
+			    	echo "*************************Reconfigure App Code*************************"
 				    cd ${WORKSPACE}
   				  mkdir package
   			  	cd ${WORKSPACE}/package
-	  		  	touch doodle_build-${BUILD_NUMBER}.txt
+	  		  	touch app_build-${BUILD_NUMBER}.txt
+		  		  ls -ltr
+			    '''
+  		}
+  	}
+
+  	stage('Build & Tar Package') {
+	  	node {
+		  sh '''
+						echo "*************************Build & Tar Package*************************"
+						cd ${WORKSPACE}/package
+						tar -cvf ${WORKSPACE}/app_build-${BUILD_NUMBER}.tar *
+						ls -ltr
+				  '''
+	  	}
+	  }
+  	stage('Load To Artifactory') {
+  		node {
+			sh '''
+					echo "*************************Load To Artifactory*************************"
+					echo "curl command pushes the new package into Artifactory"
+					curl -u ${ARTIFACTORY_USER}:${ARTIFACTORY_PASSWORD} -X PUT "${ARTIFACTORY_SERVER}:${ARTIFACTORY_PORT}/artifactory/app-release-local/com/app/build/app_build-${BUILD_NUMBER}/app_build-${BUILD_NUMBER}.tar" -T ${WORKSPACE}/app_build-${BUILD_NUMBER}.tar
+		  		rm ${WORKSPACE}/app_build-${BUILD_NUMBER}.tar
+				'''
+		  }
+	  }
+
+
+  	stage('Deploy App & Ansible Code') {
+	   	node {
+		    	sh '''
+			    	echo "*************************Deploy App & Ansible Code*************************"
+				    cd ${WORKSPACE}
+  				  mkdir package
+  			  	cd ${WORKSPACE}/package
+	  		  	touch app_build-${BUILD_NUMBER}.txt
+            cd ${WORKSPACE}/ansible
+
 		  		  ls -ltr
 			    '''
   		}
