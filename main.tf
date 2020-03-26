@@ -28,9 +28,11 @@ resource "aws_instance" "default" {
     user        = "ubuntu"
 
 # Ansible requires Python to be installed on the remote machine as well as the local machine.
-#provisioner "remote-exec" {
-#  inline = ["sudo apt-get -qq install python -y"]
-#}
+provisioner "remote-exec" {
+  inline = [
+     "sudo apt-get -qq install python -y",
+  ]
+}
 
   # This is where we configure the instance with ansible-playbook
   #  provisioner "local-exec" {
@@ -69,6 +71,13 @@ resource "aws_security_group" "default" {
     to_port     = 22
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 8081
+    to_port     = 8082
+    protocol    = "tcp"
+    cidr_blocks = ["109.78.37.103/32"]
   }
 
   ingress {

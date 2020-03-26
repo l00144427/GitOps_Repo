@@ -99,16 +99,17 @@ try {
 				  '''
 	  	}
 	  }
-  	stage('Load To Artifactory') {
-  		node {
-			sh '''
-					echo "*************************Load To Artifactory*************************"
-					echo "curl command pushes the new package into Artifactory"
-					curl -u ${ARTIFACTORY_USER}:${ARTIFACTORY_PASSWORD} -X PUT "${ARTIFACTORY_SERVER}:${ARTIFACTORY_PORT}/artifactory/app-release-local/com/app/build/app_build-${BUILD_NUMBER}/app_build-${BUILD_NUMBER}.tar" -T ${WORKSPACE}/app_build-${BUILD_NUMBER}.tar
-		  		rm ${WORKSPACE}/app_build-${BUILD_NUMBER}.tar
-				'''
-		  }
-	  }
+
+  	// stage('Load To Artifactory') {
+  	// 	node {
+		// 	sh '''
+		// 			echo "*************************Load To Artifactory*************************"
+		// 			echo "curl command pushes the new package into Artifactory"
+		// 			curl -u ${ARTIFACTORY_USER}:${ARTIFACTORY_PASSWORD} -X PUT "${ARTIFACTORY_SERVER}:${ARTIFACTORY_PORT}/artifactory/app-release-local/com/app/build/app_build-${BUILD_NUMBER}/app_build-${BUILD_NUMBER}.tar" -T ${WORKSPACE}/app_build-${BUILD_NUMBER}.tar
+		//   		rm ${WORKSPACE}/app_build-${BUILD_NUMBER}.tar
+		// 		'''
+		//   }
+	  // }
 
 
   	stage('Deploy App & Ansible Code') {
@@ -120,7 +121,7 @@ try {
   			  	cd ${WORKSPACE}/package
 	  		  	touch app_build-${BUILD_NUMBER}.txt
             cd ${WORKSPACE}/ansible
-
+            ./sonarqube_deploy.sh
 		  		  ls -ltr
 			    '''
   		}

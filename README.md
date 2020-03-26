@@ -1,2 +1,33 @@
 # GitOps_Repo
 Repository for the GitOps Pipeline
+
+## Introduction
+
+This repository contains the Jenkins code that was used to create the GitOps pipeline, the Terraform code that was required to automatically provision the Ubuntu Linux servers that host the application and it also hosts the Ansible code that ensures the required software is installed on those Ubuntu Linux servers.
+
+### Resources
+
+Emmet O'Donnell & Ruth G. Lennon
+
+## Project Deadline
+
+6th May 2020
+
+## Project Specification
+
+A GitOps pipeline should be coded which should:
+
+- Be created automatically
+- On a commit from a Developer the infrastructure and application code should be taken from GitHub
+- Any infrastructure should be created if not already in place and updated if changes are required
+- The application code should be run through a series of tests
+- On success of those test the code should be packaged & deployed to GitHub
+- The code should then be deployed to the application server
+
+## Useful Links
+
+- GitHub: https://github.com/l00144427/GitOps_Repo
+- AWS: https://eu-west-1.console.aws.amazon.com/console/home?region=eu-west-1#
+- Jenkins: https://ec2-18-202-223-165.eu-west-1.compute.amazonaws.com:8080
+- Sonarqube: https://ec2-3-248-252-11.eu-west-1.compute.amazonaws.com:9000/projects?sort=-analysis_date
+- Artifactory: https://ec2-3-248-252-11.eu-west-1.compute.amazonaws.com:8082/ui/login/
