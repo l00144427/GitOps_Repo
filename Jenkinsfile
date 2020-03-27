@@ -76,29 +76,36 @@ try {
       }
     }
 
-  	stage('Reconfigure App Code') {
-	   	node {
-		    	sh '''
-			    	echo "*************************Reconfigure App Code*************************"
-				    cd ${WORKSPACE}
-  				  mkdir package
-  			  	cd ${WORKSPACE}/package
-	  		  	touch app_build-${BUILD_NUMBER}.txt
-		  		  ls -ltr
-			    '''
-  		}
-  	}
+    stage('Build & Tar Package') {
+      node {
+        sh '''
+            echo "*************************Build & Tar Package*************************"
+            cd ${WORKSPACE}
+            touch app_build-${BUILD_NUMBER}.txt
+            javac calculator
+            if [[ $? -ne 0 ]];
+            then
+              echo "The compilation of the Java code did not work as expected"
+              echo ""
+              echo "The script will now exit"
+              exit 30
+            fi
+ 
+            java calculator
+ 
+             if [[ $? -ne 0 ]];
+            then
+              echo "Running the Java application did not work as expected"
+              echo ""
+              echo "The script will now exit"
+              exit 30
+            fi
 
-  	stage('Build & Tar Package') {
-	  	node {
-		  sh '''
-						echo "*************************Build & Tar Package*************************"
-						cd ${WORKSPACE}/package
-						tar -cvf ${WORKSPACE}/app_build-${BUILD_NUMBER}.tar *
-						ls -ltr
-				  '''
-	  	}
-	  }
+            tar -cvf ${WORKSPACE}/app_build-${BUILD_NUMBER}.tar *
+            ls -ltr
+          '''
+      }
+    }
 
   	// stage('Load To Artifactory') {
   	// 	node {
@@ -116,12 +123,9 @@ try {
 	   	node {
 		    	sh '''
 			    	echo "*************************Deploy App & Ansible Code*************************"
-				    cd ${WORKSPACE}
-  				  mkdir package
-  			  	cd ${WORKSPACE}/package
-	  		  	touch app_build-${BUILD_NUMBER}.txt
             cd ${WORKSPACE}/ansible
             ./sonarqube_deploy.sh
+            cd ${WORKSPACE}
 		  		  ls -ltr
 			    '''
   		}
