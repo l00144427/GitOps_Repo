@@ -93,13 +93,21 @@ try {
               exit 30
             fi
 
-            cp /var/jenkins_home/workspace/Terraform_master/src/calculator.java /opt/calculator/
+            sudo docker cp jenkins-blueocean:/var/jenkins_home/workspace/Terraform_master/src/calculator.class /opt/calculator/
 
-            //java calculator
- 
             if [[ $? -ne 0 ]];
             then
-              echo "Running the Java application did not work as expected"
+              echo "Copying the calculator application to /opt/calculator did not work as expected"
+              echo ""
+              echo "The script will now exit"
+              exit 30
+            fi
+
+            sudo chown jenkins:jenkins /opt/calculator/calculator.class
+
+            if [[ $? -ne 0 ]];
+            then
+              echo "Changing the ownership of /opt/calculator/calculator.class did not work as expected"
               echo ""
               echo "The script will now exit"
               exit 30
