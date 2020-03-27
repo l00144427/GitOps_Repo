@@ -92,11 +92,6 @@ try {
               echo "The script will now exit"
               exit 30
             fi
- 
-            if [ ! -d /opt/calculator ]
-            then
-              sudo mkdir /opt/calculator
-            fi
 
             cp /var/jenkins_home/workspace/Terraform_master/src/calculator.java /opt/calculator/
 
