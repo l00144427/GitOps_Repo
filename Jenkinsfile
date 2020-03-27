@@ -82,7 +82,7 @@ try {
             echo "*************************Build & Tar Package*************************"
             cd ${WORKSPACE}
             touch app_build-${BUILD_NUMBER}.txt
-            javac -cp ${WORKSPACE}/srcc calculator.class
+            javac -cp ${WORKSPACE}/src calculator.class
             if [[ $? -ne 0 ]];
             then
               echo "The compilation of the Java code did not work as expected"
