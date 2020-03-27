@@ -81,7 +81,7 @@ try {
         sh '''
             echo "*************************Build & Tar Package*************************"
             cd ${WORKSPACE}
-            ls -lrt
+            ls -lrt /var/jenkins_home/workspace/Terraform_master/src/calculator.java
             touch app_build-${BUILD_NUMBER}.txt
             javac -cp ${WORKSPACE}/src calculator.java
             if [[ $? -ne 0 ]];
