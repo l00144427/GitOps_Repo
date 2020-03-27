@@ -93,9 +93,16 @@ try {
               exit 30
             fi
  
-            java calculator
+            if [ ! -d /opt/calculator ]
+            then
+              mkdir /opt/calculator
+            fi
+
+            cp /var/jenkins_home/workspace/Terraform_master/src/calculator.java /opt/calculator/
+
+            //java calculator
  
-             if [[ $? -ne 0 ]];
+            if [[ $? -ne 0 ]];
             then
               echo "Running the Java application did not work as expected"
               echo ""
