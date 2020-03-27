@@ -95,7 +95,7 @@ try {
  
             if [ ! -d /opt/calculator ]
             then
-              mkdir /opt/calculator
+              sudo mkdir /opt/calculator
             fi
 
             cp /var/jenkins_home/workspace/Terraform_master/src/calculator.java /opt/calculator/
