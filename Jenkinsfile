@@ -93,7 +93,7 @@ try {
               exit 30
             fi
 
-            echo" docker exec jenkins-blueocean cp /var/jenkins_home/workspace/Terraform_master/src/calculator.class /opt/calculator/"
+            echo " docker exec jenkins-blueocean cp /var/jenkins_home/workspace/Terraform_master/src/calculator.class /opt/calculator/"
 
             if [[ $? -ne 0 ]];
             then
