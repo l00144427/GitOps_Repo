@@ -93,11 +93,7 @@ try {
               exit 30
             fi
 
-            hostname
-            whoami
-            docker ps -a
-
-            docker exec jenkins-blueocean cp /var/jenkins_home/workspace/Terraform_master/src/calculator.class /opt/calculator/
+            // docker exec jenkins-blueocean cp /var/jenkins_home/workspace/Terraform_master/src/calculator.class /opt/calculator/
 
             if [[ $? -ne 0 ]];
             then
@@ -107,7 +103,7 @@ try {
               exit 30
             fi
 
-            sudo chown jenkins:jenkins /opt/calculator/calculator.class
+            //sudo chown jenkins:jenkins /opt/calculator/calculator.class
 
             if [[ $? -ne 0 ]];
             then
