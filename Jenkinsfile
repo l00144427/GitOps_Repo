@@ -135,7 +135,7 @@ try {
 	   	node {
 		    	sh '''
 			    	echo "*************************Deploy App & Ansible Code*************************"
-            cd ${WORKSPACE}/ansible
+            cd ${WORKSPACE}/Ansible
             ./sonarqube_deploy.sh
             cd ${WORKSPACE}
 		  		  ls -ltr
