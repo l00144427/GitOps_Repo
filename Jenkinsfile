@@ -80,11 +80,19 @@ try {
       node {
         sh '''
             echo "*************************Build & Tar Package*************************"
+
             cd ${WORKSPACE}
+
             ls -lrt /var/jenkins_home/workspace/Terraform_master/src/calculator.java
-            touch app_build-${BUILD_NUMBER}.txt
+
             cd /var/jenkins_home/workspace/Terraform_master/src
+
+            echo ""
+            echo "Creating the compiled code"
+            echo ""
+
             javac -cp ${WORKSPACE}/src calculator.java
+
             if [[ $? -ne 0 ]];
             then
               echo "The compilation of the Java code did not work as expected"
@@ -93,31 +101,37 @@ try {
               exit 30
             fi
 
-            echo " docker exec jenkins-blueocean cp /var/jenkins_home/workspace/Terraform_master/src/calculator.class /opt/calculator/"
-
-            if [[ $? -ne 0 ]];
-            then
-              echo "Copying the calculator application to /opt/calculator did not work as expected"
-              echo ""
-              echo "The script will now exit"
-              exit 30
-            fi
-
-            echo "sudo chown jenkins:jenkins /opt/calculator/calculator.class"
-
-            if [[ $? -ne 0 ]];
-            then
-              echo "Changing the ownership of /opt/calculator/calculator.class did not work as expected"
-              echo ""
-              echo "The script will now exit"
-              exit 30
-            fi
+            echo ""
+            echo "Adding the compiled code into a tar package"
+            echo ""
 
             tar -cvf ${WORKSPACE}/app_build-${BUILD_NUMBER}.tar *
+
+            echo ""
+            echo "Gzipping the tar package"
+            echo ""
+
+            gzip ${WORKSPACE}/app_build-${BUILD_NUMBER}.tar
+
             ls -ltr
           '''
       }
     }
+
+  	stage('Load The Code Package To GitHub') {
+  	 	node {
+		   sh '''
+		 			echo "*************************Load The Code Package To GitHub*************************"
+		
+          withCredentials([usernamePassword(credentialsId: 'Git', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+            sh("git tag -a some_tag -m 'Jenkins'")
+            sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@l00144427/GitOps_Repo --tags')
+          }
+
+          rm ${WORKSPACE}/app_build-${BUILD_NUMBER}.tar.gz
+		 		'''
+		  }
+	  }
 
   	// stage('Load To Artifactory') {
   	// 	node {
