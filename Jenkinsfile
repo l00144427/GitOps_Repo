@@ -125,7 +125,7 @@ try {
 		
           withCredentials([usernamePassword(credentialsId: 'Git', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
             sh("git tag -a some_tag -m 'Jenkins'")
-            sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@l00144427/GitOps_Repo --tags')
+            sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@GitOps_Repo --tags')
           }
 
           rm ${WORKSPACE}/app_build-${BUILD_NUMBER}.tar.gz
