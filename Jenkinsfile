@@ -9,73 +9,6 @@ try {
     }
   }
 
-  // Run terraform init
-  stage('Terraform Init') {
-    node {
-      withCredentials([[
-        $class: 'AmazonWebServicesCredentialsBinding',
-        credentialsId: credentialsId,
-        accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-        secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
-      ]]) {
-        ansiColor('xterm') {
-          // Using TF_LOG=DEBUG here to provide greater debug logs
-          sh 'TF_LOG=DEBUG terraform init'
-        }
-      }
-    }
-  }
-
-  // Run terraform plan
-  stage('Terraform Plan') {
-    node {
-      withCredentials([[
-        $class: 'AmazonWebServicesCredentialsBinding',
-        credentialsId: credentialsId,
-        accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-        secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
-      ]]) {
-        ansiColor('xterm') {
-          sh 'terraform plan'
-        }
-      }
-    }
-  }
-
-  if (env.BRANCH_NAME == 'master') {
-
-    // Run terraform apply
-    stage('Terraform Apply') {
-      node {
-        withCredentials([[
-          $class: 'AmazonWebServicesCredentialsBinding',
-          credentialsId: credentialsId,
-          accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-          secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
-        ]]) {
-          ansiColor('xterm') {
-            sh 'terraform apply -auto-approve'
-          }
-        }
-      }
-    }
-
-    // Run terraform show
-    stage('Terraform Show') {
-      node {
-        withCredentials([[
-          $class: 'AmazonWebServicesCredentialsBinding',
-          credentialsId: credentialsId,
-          accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-          secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
-        ]]) {
-          ansiColor('xterm') {
-            sh 'terraform show'
-          }
-        }
-      }
-    }
-
     stage('Build & Tar Package') {
       node {
         sh '''
@@ -124,8 +57,9 @@ try {
 		 			echo "*************************Load The Code Package To GitHub*************************"
 		
           withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'Git', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
+ 
             sh("git tag -a ${BUILD_NUMBER} -m 'Jenkins'")
-            sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@GitOps_Repo --tags')
+            sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@GitOps_Repo.git --tags')
           }
 
           rm ${WORKSPACE}/app_build-${BUILD_NUMBER}.tar.gz
