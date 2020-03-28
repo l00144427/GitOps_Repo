@@ -55,10 +55,11 @@ try {
   	 	node {
 		   sh '''
 		 			echo "*************************Load The Code Package To GitHub*************************"
-		
+          echo "To find out which line is failing"
           withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'Git', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
  
             sh("git tag -a ${BUILD_NUMBER} -m 'Jenkins'")
+            echo "Another line to find out which line is failing"
             sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@GitOps_Repo.git --tags')
           }
 
