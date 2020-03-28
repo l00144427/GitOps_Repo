@@ -123,8 +123,8 @@ try {
 		   sh '''
 		 			echo "*************************Load The Code Package To GitHub*************************"
 		
-          withCredentials([usernamePassword(credentialsId: 'Git', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-            sh("git tag -a some_tag -m 'Jenkins'")
+          withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'Git', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
+            sh("git tag -a ${BUILD_NUMBER} -m 'Jenkins'")
             sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@GitOps_Repo --tags')
           }
 
