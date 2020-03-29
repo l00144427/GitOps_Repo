@@ -14,11 +14,9 @@ try {
       sh '''
           echo "*************************Build & Tar Package*************************"
 
-          cd ${WORKSPACE}
+          cd ${WORKSPACE}/src
 
-          ls -lrt /var/jenkins_home/workspace/Terraform_master/src/calculator.java
-
-          cd /var/jenkins_home/workspace/Terraform_master/src
+          mkdir ${WORKSPACE}/packages
 
           echo ""
           echo "Creating the compiled code"
