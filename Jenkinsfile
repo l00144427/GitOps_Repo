@@ -80,6 +80,7 @@ try {
     //}
 
     stage('Push') {
+      node {
       // Commit and push with ssh credentials
       withCredentials(
 //       [string(credentialsId: 'git-email', variable: 'GIT_COMMITTER_EMAIL'),
@@ -95,6 +96,7 @@ try {
            sh "git commit -am 'Commit message'"
            sh 'git push origin HEAD:master'
         }
+      }
     }
 
   	// stage('Load To Artifactory') {
