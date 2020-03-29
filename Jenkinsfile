@@ -75,6 +75,7 @@ try {
         //sh("(cd reponame && git add ranger-policies/policies.json)")
         //sh("(cd reponame && git commit -m 'daily backup of ranger-policies/policies.json')")
         sh('(cd ${WORKSPACE} && git push git@github.com:${GIT_USERNAME}/GitOps_Repo.git)')
+        }
       }
     }
 
