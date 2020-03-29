@@ -85,7 +85,7 @@ try {
         environment { 
             GIT_AUTH = credentials('Git') 
         }
-        steps {
+        node {
         sh('''
           git config user.name 'l00144427'
           git config user.email 'l00144427@student.lyit.ie'
