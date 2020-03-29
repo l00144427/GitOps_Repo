@@ -38,48 +38,20 @@ try {
           echo "Adding the compiled code into a tar package"
           echo ""
 
-          tar -cvf ${WORKSPACE}/app_build-${BUILD_NUMBER}.tar *
+          tar -cvf ${WORKSPACE}/packages/app_build-${BUILD_NUMBER}.tar *
 
           echo ""
           echo "Gzipping the tar package"
           echo ""
 
-          gzip ${WORKSPACE}/app_build-${BUILD_NUMBER}.tar
+          gzip ${WORKSPACE}/packages/app_build-${BUILD_NUMBER}.tar
 
           ls -ltr
       '''
     }
   }
 
-//  	stage('Load The Code Package To GitHub') {
-//  	 	node {
-//		   sh '''
-//		 			echo "*************************Load The Code Package To GitHub*************************"
-//          echo "To find out which line is failing"
-//          withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'Git', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
- 
-//            sh("git tag -a ${BUILD_NUMBER} -m 'Jenkins'")
-//            echo "Another line to find out which line is failing"
-//            sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@GitOps_Repo.git --tags')
-//          }
-
-//          rm ${WORKSPACE}/app_build-${BUILD_NUMBER}.tar.gz
-//		 		'''
-//		  }
-//	  }
-
-   // stage('Load The Code Package To GitHub') {
-   //   node {
-        //sshagent (credentials: ['Git']) {
-        // "git add", "git commit", and "git push" your changes here. You may have to cd into the repo directory like I did here because the current working directory is the parent directory to the directory that contains the actual repo, created by "git clone" earlier in this Jenkinsfile.
-        //sh("(cd reponame && git add ranger-policies/policies.json)")
-        //sh("(cd reponame && git commit -m 'daily backup of ranger-policies/policies.json')")
-       // sh('(cd ${WORKSPACE} && git push git@github.com:${GIT_USERNAME}/GitOps_Repo.git)')
-        //}
-    //  }
-    //}
-
-  stage('Push') {
+  stage('Load The Code Package To GitHub') {
   // Commit and push with ssh credentials
     environment { 
       GIT_AUTH = credentials('Git') 
@@ -89,7 +61,7 @@ try {
         git config user.name 'l00144427'
         git config user.email 'l00144427@student.lyit.ie'
         git config --local credential.helper "!f() { echo username=\\l00144427@student.lyit.ie; echo password=\\$GIT_PASSWORD; }; f"
-        git add app_build-${BUILD_NUMBER}.tar.gz
+        git add packages/app_build-${BUILD_NUMBER}.tar.gz
         git commit -am "Pushing build number ${BUILD_NUMBER} back to GitHub"
         git push origin HEAD:master
    ''')
