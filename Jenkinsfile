@@ -64,7 +64,7 @@ try {
         git remote add upstream https://gitlab.com/l00144427/GitOps_Repo.git
         git add packages/app_build-${BUILD_NUMBER}.tar.gz
         git commit -am "Pushing build number ${BUILD_NUMBER} back to GitHub"
-        git push origin upstream:master
+        git push upstream HEAD:master
    ''')
     }
   }
