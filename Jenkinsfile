@@ -70,7 +70,7 @@ try {
 
     stage('Load The Code Package To GitHub') {
       node {
-        sshagent (credentials: ['Git']) {
+        //sshagent (credentials: ['Git']) {
         // "git add", "git commit", and "git push" your changes here. You may have to cd into the repo directory like I did here because the current working directory is the parent directory to the directory that contains the actual repo, created by "git clone" earlier in this Jenkinsfile.
         //sh("(cd reponame && git add ranger-policies/policies.json)")
         //sh("(cd reponame && git commit -m 'daily backup of ranger-policies/policies.json')")
