@@ -17,7 +17,9 @@ try {
           cd ${WORKSPACE}/src
 
           // Create the packages folder where the compiled code will go
-          mkdir ${WORKSPACE}/packages
+          sudo mkdir ${WORKSPACE}/packages
+
+          sudo chown -R jenkins:jenkins ${WORKSPACE}/packages
 
           echo ""
           echo "Creating the compiled code"
