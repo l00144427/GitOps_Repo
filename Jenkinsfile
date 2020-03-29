@@ -80,23 +80,23 @@ try {
     //}
 
     stage('Push') {
-      node {
+     // node {
       // Commit and push with ssh credentials
-      withCredentials(
-//       [string(credentialsId: 'git-email', variable: 'GIT_COMMITTER_EMAIL'),
-//        string(credentialsId: 'git-account', variable: 'GIT_USERNAME'),
-//        string(credentialsId: 'git-name', variable: 'GIT_COMMITTER_NAME'),
-//        string(credentialsId: 'github-token', variable: 'GITHUB_API_TOKEN')]) {
-        [string(credentialsId: 'Git')]) {
-           // Configure the user
-           sh 'git config user.email "${GIT_COMMITTER_EMAIL}"'
-           sh 'git config user.name "${GIT_COMMITTER_NAME}"'
-           sh "git remote rm origin"
-           sh "git remote add origin https://${GIT_USERNAME}:${GITHUB_API_TOKEN}@GitOps_Repo.git > /dev/null 2>&1"                     
-           sh "git commit -am 'Commit message'"
-           sh 'git push origin HEAD:master'
+        environment { 
+            GIT_AUTH = credentials('Git') 
         }
-      }
+        steps {
+        sh('''
+          git config user.name 'l00144427'
+          git config user.email 'l00144427@student.lyit.ie'
+        ''')
+
+
+            sh('''
+                git config --local credential.helper "!f() { echo username=\\$GIT_USERNAME; echo password=\\$GIT_PASSWORD; }; f"
+                git push origin HEAD:master
+            ''')
+        }
     }
 
   	// stage('Load To Artifactory') {
