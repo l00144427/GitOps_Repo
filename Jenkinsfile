@@ -51,22 +51,32 @@ try {
       }
     }
 
-  	stage('Load The Code Package To GitHub') {
-  	 	node {
-		   sh '''
-		 			echo "*************************Load The Code Package To GitHub*************************"
-          echo "To find out which line is failing"
-          withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'Git', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
+//  	stage('Load The Code Package To GitHub') {
+//  	 	node {
+//		   sh '''
+//		 			echo "*************************Load The Code Package To GitHub*************************"
+//          echo "To find out which line is failing"
+//          withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'Git', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD']]) {
  
-            sh("git tag -a ${BUILD_NUMBER} -m 'Jenkins'")
-            echo "Another line to find out which line is failing"
-            sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@GitOps_Repo.git --tags')
-          }
+//            sh("git tag -a ${BUILD_NUMBER} -m 'Jenkins'")
+//            echo "Another line to find out which line is failing"
+//            sh('git push https://${GIT_USERNAME}:${GIT_PASSWORD}@GitOps_Repo.git --tags')
+//          }
 
-          rm ${WORKSPACE}/app_build-${BUILD_NUMBER}.tar.gz
-		 		'''
-		  }
-	  }
+//          rm ${WORKSPACE}/app_build-${BUILD_NUMBER}.tar.gz
+//		 		'''
+//		  }
+//	  }
+
+    stage('Load The Code Package To GitHub') {
+      node {
+        sshagent (credentials: ['Git']) {
+        // "git add", "git commit", and "git push" your changes here. You may have to cd into the repo directory like I did here because the current working directory is the parent directory to the directory that contains the actual repo, created by "git clone" earlier in this Jenkinsfile.
+        //sh("(cd reponame && git add ranger-policies/policies.json)")
+        //sh("(cd reponame && git commit -m 'daily backup of ranger-policies/policies.json')")
+        sh('(cd ${WORKSPACE} && git push git@github.com:${GIT_USERNAME}/GitOps_Repo.git)')
+      }
+    }
 
   	// stage('Load To Artifactory') {
   	// 	node {
