@@ -82,10 +82,11 @@ try {
     stage('Push') {
       // Commit and push with ssh credentials
       withCredentials(
-       [string(credentialsId: 'git-email', variable: 'GIT_COMMITTER_EMAIL'),
-        string(credentialsId: 'git-account', variable: 'GIT_USERNAME'),
-        string(credentialsId: 'git-name', variable: 'GIT_COMMITTER_NAME'),
-        string(credentialsId: 'github-token', variable: 'GITHUB_API_TOKEN')]) {
+//       [string(credentialsId: 'git-email', variable: 'GIT_COMMITTER_EMAIL'),
+//        string(credentialsId: 'git-account', variable: 'GIT_USERNAME'),
+//        string(credentialsId: 'git-name', variable: 'GIT_COMMITTER_NAME'),
+//        string(credentialsId: 'github-token', variable: 'GITHUB_API_TOKEN')]) {
+        [string(credentialsId: 'Git')]) {
            // Configure the user
            sh 'git config user.email "${GIT_COMMITTER_EMAIL}"'
            sh 'git config user.name "${GIT_COMMITTER_NAME}"'
