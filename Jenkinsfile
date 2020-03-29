@@ -9,47 +9,47 @@ try {
     }
   }
 
-    stage('Build & Tar Package') {
-      node {
-        sh '''
-            echo "*************************Build & Tar Package*************************"
+  stage('Build & Tar Package') {
+    node {
+      sh '''
+          echo "*************************Build & Tar Package*************************"
 
-            cd ${WORKSPACE}
+          cd ${WORKSPACE}
 
-            ls -lrt /var/jenkins_home/workspace/Terraform_master/src/calculator.java
+          ls -lrt /var/jenkins_home/workspace/Terraform_master/src/calculator.java
 
-            cd /var/jenkins_home/workspace/Terraform_master/src
+          cd /var/jenkins_home/workspace/Terraform_master/src
 
+          echo ""
+          echo "Creating the compiled code"
+          echo ""
+
+          javac -cp ${WORKSPACE}/src calculator.java
+
+          if [[ $? -ne 0 ]];
+          then
+            echo "The compilation of the Java code did not work as expected"
             echo ""
-            echo "Creating the compiled code"
-            echo ""
+            echo "The script will now exit"
+            exit 30
+          fi
 
-            javac -cp ${WORKSPACE}/src calculator.java
+          echo ""
+          echo "Adding the compiled code into a tar package"
+          echo ""
 
-            if [[ $? -ne 0 ]];
-            then
-              echo "The compilation of the Java code did not work as expected"
-              echo ""
-              echo "The script will now exit"
-              exit 30
-            fi
+          tar -cvf ${WORKSPACE}/app_build-${BUILD_NUMBER}.tar *
 
-            echo ""
-            echo "Adding the compiled code into a tar package"
-            echo ""
+          echo ""
+          echo "Gzipping the tar package"
+          echo ""
 
-            tar -cvf ${WORKSPACE}/app_build-${BUILD_NUMBER}.tar *
+          gzip ${WORKSPACE}/app_build-${BUILD_NUMBER}.tar
 
-            echo ""
-            echo "Gzipping the tar package"
-            echo ""
-
-            gzip ${WORKSPACE}/app_build-${BUILD_NUMBER}.tar
-
-            ls -ltr
-          '''
-      }
+          ls -ltr
+      '''
     }
+  }
 
 //  	stage('Load The Code Package To GitHub') {
 //  	 	node {
@@ -79,25 +79,20 @@ try {
     //  }
     //}
 
-    stage('Push') {
-     // node {
-      // Commit and push with ssh credentials
-        environment { 
-            GIT_AUTH = credentials('Git') 
-        }
-        node {
-        sh('''
-          git config user.name 'l00144427'
-          git config user.email 'l00144427@student.lyit.ie'
-        ''')
-
-
-            sh('''
-                git config --local credential.helper "!f() { echo username=\\$GIT_USERNAME; echo password=\\$GIT_PASSWORD; }; f"
-                git push origin HEAD:master
-            ''')
-        }
+  stage('Push') {
+  // Commit and push with ssh credentials
+    environment { 
+      GIT_AUTH = credentials('Git') 
     }
+    node {
+      sh('''
+        git config user.name 'l00144427'
+        git config user.email 'l00144427@student.lyit.ie'
+        git config --local credential.helper "!f() { echo username=\\l00144427@student.lyit.ie; echo password=\\$GIT_PASSWORD; }; f"
+        git push origin HEAD:master
+   ''')
+    }
+  }
 
   	// stage('Load To Artifactory') {
   	// 	node {
