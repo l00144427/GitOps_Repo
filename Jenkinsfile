@@ -16,6 +16,7 @@ try {
 
           cd ${WORKSPACE}/src
 
+          // Create the packages folder where the compiled code will go
           mkdir ${WORKSPACE}/packages
 
           echo ""
