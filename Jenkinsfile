@@ -68,15 +68,32 @@ try {
 //		  }
 //	  }
 
-    stage('Load The Code Package To GitHub') {
-      node {
+   // stage('Load The Code Package To GitHub') {
+   //   node {
         //sshagent (credentials: ['Git']) {
         // "git add", "git commit", and "git push" your changes here. You may have to cd into the repo directory like I did here because the current working directory is the parent directory to the directory that contains the actual repo, created by "git clone" earlier in this Jenkinsfile.
         //sh("(cd reponame && git add ranger-policies/policies.json)")
         //sh("(cd reponame && git commit -m 'daily backup of ranger-policies/policies.json')")
-        sh('(cd ${WORKSPACE} && git push git@github.com:${GIT_USERNAME}/GitOps_Repo.git)')
+       // sh('(cd ${WORKSPACE} && git push git@github.com:${GIT_USERNAME}/GitOps_Repo.git)')
         //}
-      }
+    //  }
+    //}
+
+    stage('Push') {
+      // Commit and push with ssh credentials
+      withCredentials(
+       [string(credentialsId: 'git-email', variable: 'GIT_COMMITTER_EMAIL'),
+        string(credentialsId: 'git-account', variable: 'GIT_USERNAME'),
+        string(credentialsId: 'git-name', variable: 'GIT_COMMITTER_NAME'),
+        string(credentialsId: 'github-token', variable: 'GITHUB_API_TOKEN')]) {
+           // Configure the user
+           sh 'git config user.email "${GIT_COMMITTER_EMAIL}"'
+           sh 'git config user.name "${GIT_COMMITTER_NAME}"'
+           sh "git remote rm origin"
+           sh "git remote add origin https://${GIT_USERNAME}:${GITHUB_API_TOKEN}@GitOps_Repo.git > /dev/null 2>&1"                     
+           sh "git commit -am 'Commit message'"
+           sh 'git push origin HEAD:master'
+        }
     }
 
   	// stage('Load To Artifactory') {
