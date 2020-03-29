@@ -89,6 +89,8 @@ try {
         git config user.name 'l00144427'
         git config user.email 'l00144427@student.lyit.ie'
         git config --local credential.helper "!f() { echo username=\\l00144427@student.lyit.ie; echo password=\\$GIT_PASSWORD; }; f"
+        git add app_build-${BUILD_NUMBER}.tar.gz
+        git commit -am "Pushing build number ${BUILD_NUMBER} back to GitHub"
         git push origin HEAD:master
    ''')
     }
