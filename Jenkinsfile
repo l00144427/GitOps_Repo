@@ -54,7 +54,7 @@ try {
   stage('Load The Code Package To GitHub') {
   // Commit and push with ssh credentials
     environment { 
-      GIT_AUTH = credentials('Git') 
+      GIT_AUTH = credentials('GitLab') 
     }
     node {
       sh('''
