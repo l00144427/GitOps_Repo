@@ -62,6 +62,7 @@ try {
         git config user.email 'l00144427@student.lyit.ie'
         git config --local credential.helper "!f() { echo username=\\l00144427@student.lyit.ie; echo password=\\$GIT_PASSWORD; }; f"
         git remote add upstream https://gitlab.com/l00144427/GitOps_Repo.git
+        git pull
         git add packages/app_build-${BUILD_NUMBER}.tar.gz
         git commit -am "Pushing build number ${BUILD_NUMBER} to GitLab"
         git push upstream HEAD:master
