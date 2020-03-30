@@ -76,19 +76,21 @@ try {
 
   stage('Execute The Ansible Scripts') {
     node {
-      cd ${WORKSPACE}/Ansible
+      sh '''
+        cd ${WORKSPACE}/Ansible
 
-      chmod 750 sonarqube_deploy.sh
+        chmod 750 sonarqube_deploy.sh
 
-      ./sonarqube_deploy.sh
+        ./sonarqube_deploy.sh
 
-      if [[ $? -ne 0 ]];
-      then
-        echo "The execution of the Ansible scripts did not work as expected"
-        echo ""
-        echo "The script will now exit"
-        exit 30
-       fi
+        if [[ $? -ne 0 ]];
+        then
+          echo "The execution of the Ansible scripts did not work as expected"
+          echo ""
+          echo "The script will now exit"
+          exit 30
+        fi
+      '''
     }
   }
 
