@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo apt-get install -y ansible
+apt-get install -y ansible
 
 echo "Running the Java Ansible playbook"
 echo ""
