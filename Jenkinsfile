@@ -42,9 +42,6 @@ try {
     }
   }
 
-
-  if (env.BRANCH_NAME == 'master') {
-
   // Run terraform apply
   stage('Terraform Apply') {
     node {
@@ -97,13 +94,17 @@ try {
 
   stage('Run Code Through JUnit') {
     node {
-      echo "*************************Run Code Through JUnit*************************"
+      sh '''
+        echo "*************************Run Code Through JUnit*************************"
+      '''
     }
   }
 
   stage('Run Code Through Sonarqube') {
     node {
-      echo "*************************Run Code Through Sonarqube*************************"
+      sh '''
+        echo "*************************Run Code Through Sonarqube*************************"
+      '''
     }
   }
 
@@ -199,7 +200,6 @@ try {
         ./sonarqube_deploy.sh
 	    '''
     }
-  }
   }
   currentBuild.result = 'SUCCESS'
 }
