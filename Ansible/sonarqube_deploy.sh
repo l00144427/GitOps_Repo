@@ -1,9 +1,11 @@
 #!/bin/bash
 
+sudo apt-get install -y ansible
+
 echo "Running the Java Ansible playbook"
 echo ""
-ls -lrt /usr/local/bin/ansible-playbook
-/usr/local/bin/ansible-playbook java.yml
+
+ansible-playbook java.yml
 
 if [[ $? -ne 0 ]];
 then
@@ -15,7 +17,7 @@ fi
 
 echo "Running the JUnit Ansible playbook"
 echo ""
-/usr/local/bin/ansible-playbook junit.yml
+ansible-playbook junit.yml
 
 if [[ $? -ne 0 ]];
 then
@@ -27,7 +29,7 @@ fi
 
 echo "Running the Docker Ansible playbook"
 echo ""
-/usr/local/bin/ansible-playbook docker.yml
+ansible-playbook docker.yml
 
 if [[ $? -ne 0 ]];
 then
@@ -39,7 +41,7 @@ fi
 
 echo "Running the Sonarqube Ansible playbook"
 echo ""
-/usr/local/bin/ansible-playbook sonarqube.yml
+ansible-playbook sonarqube.yml
 
 if [[ $? -ne 0 ]];
 then
