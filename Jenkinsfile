@@ -116,7 +116,7 @@ try {
         fi
 
         java org.junit.runner.JUnitCore CalculatorTest
-        
+
         junit 'reports/**/*.xml'
 
         if [[ $? -ne 0 ]];
@@ -149,7 +149,7 @@ try {
           echo "Compiling the Java code"
           echo ""
 
-          javac -cp ${WORKSPACE}/src calculator.java
+          javac -cp ${WORKSPACE}/src Calculator.java
 
           if [[ $? -ne 0 ]];
           then
