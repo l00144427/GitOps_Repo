@@ -42,6 +42,9 @@ try {
     }
   }
 
+
+  if (env.BRANCH_NAME == 'master') {
+
   // Run terraform apply
   stage('Terraform Apply') {
     node {
@@ -177,26 +180,27 @@ try {
     }
   }
 
-  	// stage('Load To Artifactory') {
-  	// 	node {
-		// 	sh '''
-		// 			echo "*************************Load To Artifactory*************************"
-		// 			echo "curl command pushes the new package into Artifactory"
-		// 			curl -u ${ARTIFACTORY_USER}:${ARTIFACTORY_PASSWORD} -X PUT "${ARTIFACTORY_SERVER}:${ARTIFACTORY_PORT}/artifactory/app-release-local/com/app/build/app_build-${BUILD_NUMBER}/app_build-${BUILD_NUMBER}.tar" -T ${WORKSPACE}/app_build-${BUILD_NUMBER}.tar
-		//   		rm ${WORKSPACE}/app_build-${BUILD_NUMBER}.tar
-		// 		'''
-		//   }
-	  // }
+//  stage('Load To Artifactory') {
+//    node {
+//      sh '''
+// 			  echo "*************************Load To Artifactory*************************"
+// 			  echo "curl command pushes the new package into Artifactory"
+// 			  curl -u ${ARTIFACTORY_USER}:${ARTIFACTORY_PASSWORD} -X PUT "${ARTIFACTORY_SERVER}:${ARTIFACTORY_PORT}/artifactory/app-release-local/com/app/build/app_build-${BUILD_NUMBER}/app_build-${BUILD_NUMBER}.tar" -T ${WORKSPACE}/app_build-${BUILD_NUMBER}.tar
+//   		  rm ${WORKSPACE}/app_build-${BUILD_NUMBER}.tar
+// 		  '''
+//    }
+//  }
 
-  	stage('Deploy The Application & Ansible Code') {
-	   	node {
-		    	sh '''
-			    	echo "*************************Deploy App & Ansible Code*************************"
-            cd ${WORKSPACE}/Ansible
-            ./sonarqube_deploy.sh
-			    '''
-  		}
-  	}
+  stage('Deploy The Application & Ansible Code') {
+	 	node {
+	   	sh '''
+	    	echo "*************************Deploy App & Ansible Code*************************"
+        cd ${WORKSPACE}/Ansible
+        ./sonarqube_deploy.sh
+	    '''
+    }
+  }
+  }
   currentBuild.result = 'SUCCESS'
 }
 catch (org.jenkinsci.plugins.workflow.steps.FlowInterruptedException flowError) {
