@@ -1,8 +1,13 @@
+import src.calculator;
+import org.junit.Test;
+import org.junit.Assert;
+import org.junit.Before;
+
 public class CalculatorTest {
-    private Calculator objCalcUnderTest;
+    private calculator objCalcUnderTest;
     @Before
     public void setUp() {
-        objCalcUnderTest = new Calculator();
+        objCalcUnderTest = new calculator();
     }
     @Test
     public void testAdd() {
