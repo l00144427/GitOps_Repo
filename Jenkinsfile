@@ -82,7 +82,7 @@ try {
         chmod 750 sonarqube_deploy.sh
 
         // Unable to get this to work
-        //./sonarqube_deploy.sh
+        // ./sonarqube_deploy.sh
 
         if [[ $? -ne 0 ]];
         then
