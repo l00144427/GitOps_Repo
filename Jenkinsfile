@@ -99,18 +99,24 @@ try {
     node {
       sh '''
         echo "*************************Run Code Through JUnit*************************"
-        cd ${WORKSPACE}
+        cd ${WORKSPACE}/src
 
-        make check
+        echo ""
+        echo "Compiling the JUnit tests"
+        echo ""
+
+        javac -cp ${WORKSPACE}/src CalculatorTest.java
 
         if [[ $? -ne 0 ]];
         then
-          echo "The execution of the make check command did not work as expected"
+          echo "The compilation of the JUnit tests did not work as expected"
           echo ""
           echo "The script will now exit"
           exit 30
         fi
 
+        java org.junit.runner.JUnitCore CalculatorTest
+        
         junit 'reports/**/*.xml'
 
         if [[ $? -ne 0 ]];
