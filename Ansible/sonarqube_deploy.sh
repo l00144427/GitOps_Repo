@@ -1,7 +1,5 @@
 #!/bin/bash
 
-apt-get install -y ansible
-
 echo "Running the Java Ansible playbook"
 echo ""
 

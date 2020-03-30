@@ -81,7 +81,8 @@ try {
 
         chmod 750 sonarqube_deploy.sh
 
-        ./sonarqube_deploy.sh
+        // Unable to get this to work
+        //./sonarqube_deploy.sh
 
         if [[ $? -ne 0 ]];
         then
@@ -98,6 +99,27 @@ try {
     node {
       sh '''
         echo "*************************Run Code Through JUnit*************************"
+        cd ${WORKSPACE}
+
+        make check
+
+        if [[ $? -ne 0 ]];
+        then
+          echo "The execution of the make check command did not work as expected"
+          echo ""
+          echo "The script will now exit"
+          exit 30
+        fi
+
+        junit 'reports/**/*.xml'
+
+        if [[ $? -ne 0 ]];
+        then
+          echo "The execution of JUnit did not work as expected"
+          echo ""
+          echo "The script will now exit"
+          exit 30
+        fi
       '''
     }
   }
@@ -194,12 +216,19 @@ try {
 //    }
 //  }
 
-  stage('Deploy The Application & Ansible Code') {
+  stage('Deploy The Application Code') {
 	 	node {
 	   	sh '''
-	    	echo "*************************Deploy App & Ansible Code*************************"
-        cd ${WORKSPACE}/Ansible
-        ./sonarqube_deploy.sh
+	    	echo "*************************Deploy The Application Code*************************"
+	    '''
+    }
+  }
+
+
+  stage('Test The Application') {
+	 	node {
+	   	sh '''
+	    	echo "*************************Test The Application*************************"
 	    '''
     }
   }
