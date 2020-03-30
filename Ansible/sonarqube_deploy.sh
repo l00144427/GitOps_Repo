@@ -12,6 +12,18 @@ then
     exit 30
 fi
 
+echo "Running the JUnit Ansible playbook"
+echo ""
+ansible-playbook junit.yml
+
+if [[ $? -ne 0 ]];
+then
+    echo "The JUnit installation did not work as expected"
+    echo ""
+    echo "The script will now exit"
+    exit 30
+fi
+
 echo "Running the Docker Ansible playbook"
 echo ""
 ansible-playbook docker.yml

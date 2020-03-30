@@ -1,0 +1,10 @@
+---
+- hosts: all
+  remote_user: root
+  become: true
+
+  tasks:
+    - name: Install JUnit
+      command: "{{ item }}"
+      with_items:
+        - apt-get install -y junit

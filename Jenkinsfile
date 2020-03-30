@@ -9,6 +9,101 @@ try {
     }
   }
 
+  // Run terraform init
+  stage('Terraform Init') {
+    node {
+      withCredentials([[
+        $class: 'AmazonWebServicesCredentialsBinding',
+        credentialsId: credentialsId,
+        accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+        secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+      ]]) {
+        ansiColor('xterm') {
+          // Using TF_LOG=DEBUG here to provide greater debug logs
+          sh 'TF_LOG=DEBUG terraform init'
+        }
+      }
+    }
+  }
+
+  // Run terraform plan
+  stage('Terraform Plan') {
+    node {
+      withCredentials([[
+        $class: 'AmazonWebServicesCredentialsBinding',
+        credentialsId: credentialsId,
+        accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+        secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+      ]]) {
+        ansiColor('xterm') {
+          sh 'terraform plan'
+        }
+      }
+    }
+  }
+
+  // Run terraform apply
+  stage('Terraform Apply') {
+    node {
+      withCredentials([[
+        $class: 'AmazonWebServicesCredentialsBinding',
+        credentialsId: credentialsId,
+        accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+        secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+      ]]) {
+        ansiColor('xterm') {
+          sh 'terraform apply -auto-approve'
+        }
+      }
+    }
+  }
+
+  // Run terraform show
+  stage('Terraform Show') {
+    node {
+      withCredentials([[
+        $class: 'AmazonWebServicesCredentialsBinding',
+        credentialsId: credentialsId,
+        accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+        secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+      ]]) {
+        ansiColor('xterm') {
+          sh 'terraform show'
+        }
+      }
+    }
+  }
+
+  stage('Execute The Ansible Scripts') {
+    node {
+      cd ${WORKSPACE}/Ansible
+
+      chmod 750 sonarqube_deploy.sh
+
+      ./sonarqube_deploy.sh
+
+      if [[ $? -ne 0 ]];
+      then
+        echo "The execution of the Ansible scripts did not work as expected"
+        echo ""
+        echo "The script will now exit"
+        exit 30
+       fi
+    }
+  }
+
+  stage('Run Code Through JUnit') {
+    node {
+      echo "*************************Run Code Through JUnit*************************"
+    }
+  }
+
+  stage('Run Code Through Sonarqube') {
+    node {
+      echo "*************************Run Code Through Sonarqube*************************"
+    }
+  }
+
   stage('Build & Tar Package') {
     node {
       sh '''
@@ -17,7 +112,7 @@ try {
           cd ${WORKSPACE}/src
 
           echo ""
-          echo "Creating the compiled code"
+          echo "Compiling the Java code"
           echo ""
 
           javac -cp ${WORKSPACE}/src calculator.java
@@ -36,11 +131,27 @@ try {
 
           tar -cvf ${WORKSPACE}/packages/app_build-${BUILD_NUMBER}.tar *
 
+          if [[ $? -ne 0 ]];
+          then
+            echo "Adding the compiled code into a tar package did not work as expected"
+            echo ""
+            echo "The script will now exit"
+            exit 30
+          fi
+
           echo ""
           echo "Gzipping the tar package"
           echo ""
 
           gzip ${WORKSPACE}/packages/app_build-${BUILD_NUMBER}.tar
+
+          if [[ $? -ne 0 ]];
+          then
+            echo "Gzipping the tar package did not work as expected"
+            echo ""
+            echo "The script will now exit"
+            exit 30
+          fi
 
           ls -ltr
       '''
@@ -77,15 +188,12 @@ try {
 		//   }
 	  // }
 
-
-  	stage('Deploy App & Ansible Code') {
+  	stage('Deploy The Application & Ansible Code') {
 	   	node {
 		    	sh '''
 			    	echo "*************************Deploy App & Ansible Code*************************"
             cd ${WORKSPACE}/Ansible
             ./sonarqube_deploy.sh
-            cd ${WORKSPACE}
-		  		  ls -ltr
 			    '''
   		}
   	}
