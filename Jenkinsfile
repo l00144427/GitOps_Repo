@@ -105,6 +105,8 @@ try {
         echo "Compiling the JUnit tests"
         echo ""
 
+        chmod 755 ./gradlew
+
         ./gradlew jar
 
         ./gradlew test
