@@ -99,15 +99,15 @@ try {
     node {
       sh '''
         echo "*************************Run Code Through JUnit*************************"
-        cd ${WORKSPACE}/src
+        cd ${WORKSPACE}/
 
         echo ""
         echo "Compiling the JUnit tests"
         echo ""
 
-        gradle jar
+        gradlew jar
 
-        gradle test
+        gradlew test
 
         java -jar Calculator.jar
 
