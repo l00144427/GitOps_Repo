@@ -105,9 +105,9 @@ try {
         echo "Compiling the JUnit tests"
         echo ""
 
-        gradlew jar
+        ./gradlew jar
 
-        gradlew test
+        ./gradlew test
 
         java -jar Calculator.jar
 
