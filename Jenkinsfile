@@ -105,7 +105,13 @@ try {
         echo "Compiling the JUnit tests"
         echo ""
 
-        javac -cp ${WORKSPACE}/src CalculatorTest.java
+        gradle jar
+
+        gradle test
+
+        java -jar Calculator.jar
+
+        #javac -cp ${WORKSPACE}/src CalculatorTest.java
 
         if [[ $? -ne 0 ]];
         then
