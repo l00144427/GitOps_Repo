@@ -1,15 +1,14 @@
 /* Calculator */
-		
+                                
 import java.util.Scanner;
 
-public class calculator
+public class Calculator
 {
     public static void main(String args[])
     {
         float a, b, res;
         char choice, ch;
-        Scanner scan = new Scanner(System.in);
-		
+        Scanner scan = new Scanner(System.in);               
         do
         {
             System.out.print("1. Addition\n");
@@ -38,7 +37,7 @@ public class calculator
                     b = scan.nextFloat();
                     res = a * b;
                     System.out.print("Result = " + res);
-                    break;
+                   break;
                 case '4' : System.out.print("Enter Two Number : ");
                     a = scan.nextFloat();
                     b = scan.nextFloat();
@@ -53,4 +52,26 @@ public class calculator
             System.out.print("\n---------------------------------------\n");
         }while(choice != 5);       
     }
+    
+    public long add(int a, int b) {
+                return a + b;
+    }
+    
+    public long subtract(int a, int b) {
+                return a - b;
+    }
+    
+    public long multiply(int a, int b) {
+                return a * b;
+    }
+
+    public double divide(int a, int b) {
+        double result;
+        if (b == 0) {
+            throw new IllegalArgumentException("Divisor cannot divide by zero");
+        } else {
+            result = Double.valueOf(a)/Double.valueOf(b);
+        }
+            return result;
+        }
 }
