@@ -111,7 +111,7 @@ try {
 
         ./gradlew test
 
-        java -jar build/lib/calculator.jar
+        java -jar ${WORKSPACE}/build/lib/calculator.jar
 
         #javac -cp ${WORKSPACE}/src calculatorTest.java
 
