@@ -102,7 +102,7 @@ try {
         cd ${WORKSPACE}/
 
         echo ""
-        echo "Compiling the JUnit tests"
+        echo "Compiling the Code & the JUnit tests"
         echo ""
 
         chmod 755 ./gradlew
