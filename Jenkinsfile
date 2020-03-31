@@ -111,9 +111,9 @@ try {
 
         ./gradlew test
 
-        java -jar Calculator.jar
+        java -jar calculator.jar
 
-        #javac -cp ${WORKSPACE}/src CalculatorTest.java
+        #javac -cp ${WORKSPACE}/src calculatorTest.java
 
         if [[ $? -ne 0 ]];
         then
@@ -123,9 +123,9 @@ try {
           exit 30
         fi
 
-        java org.junit.runner.JUnitCore CalculatorTest
+        #java org.junit.runner.JUnitCore CalculatorTest
 
-        junit 'reports/**/*.xml'
+        #junit 'reports/**/*.xml'
 
         if [[ $? -ne 0 ]];
         then
