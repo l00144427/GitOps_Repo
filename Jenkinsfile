@@ -109,27 +109,19 @@ try {
 
         ./gradlew jar
 
-        ./gradlew test
-
-        java -jar ${WORKSPACE}/build/libs/calculator.jar
-
-        #javac -cp ${WORKSPACE}/src calculatorTest.java
-
         if [[ $? -ne 0 ]];
         then
-          echo "The compilation of the JUnit tests did not work as expected"
+          echo "The compilation of the Code & JUnit Test did not work as expected"
           echo ""
           echo "The script will now exit"
           exit 30
         fi
 
-        #java org.junit.runner.JUnitCore CalculatorTest
-
-        #junit 'reports/**/*.xml'
+        ./gradlew test
 
         if [[ $? -ne 0 ]];
         then
-          echo "The execution of JUnit did not work as expected"
+          echo "The execution of the JUnit Test did not work as expected"
           echo ""
           echo "The script will now exit"
           exit 30
@@ -151,21 +143,7 @@ try {
       sh '''
           echo "*************************Build & Tar Package*************************"
 
-          cd ${WORKSPACE}/src
-
-          echo ""
-          echo "Compiling the Java code"
-          echo ""
-
-          javac -cp ${WORKSPACE}/src Calculator.java
-
-          if [[ $? -ne 0 ]];
-          then
-            echo "The compilation of the Java code did not work as expected"
-            echo ""
-            echo "The script will now exit"
-            exit 30
-          fi
+          cd ${WORKSPACE}/build/libs
 
           echo ""
           echo "Adding the compiled code into a tar package"
