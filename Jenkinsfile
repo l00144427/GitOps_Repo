@@ -75,7 +75,7 @@ try {
   }
 
   stage('Execute The Ansible Scripts') {
-    #withEnv(["PATH+ANSIBLE"=${tool 'Ansible'}])
+    // withEnv(["PATH+ANSIBLE"=${tool 'Ansible'}])
     node {
       sh '''
         cd ${WORKSPACE}/Ansible
@@ -150,14 +150,14 @@ try {
     }
   }
 
-   #checkout poll: false,
-    #scm: [$class: 'GitSCM',
-   # branches: [[name: 'refs/heads/master']],
-   # doGenerateSubmoduleConfigurations: false,
-   # extensions: [],
-   # submoduleCfg: [],
-    #userRemoteConfigs: [[url: 'https://github.com/l00144427/GitOps_Repo.git']]]
-  #}
+   //checkout poll: false,
+    //scm: [$class: 'GitSCM',
+   // branches: [[name: 'refs/heads/master']],
+   // doGenerateSubmoduleConfigurations: false,
+   // extensions: [],
+   // submoduleCfg: [],
+    //userRemoteConfigs: [[url: 'https://github.com/l00144427/GitOps_Repo.git']]]
+  //}
 
   stage('Build & Tar Package') {
     node {
