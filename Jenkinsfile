@@ -81,8 +81,8 @@ try {
 
         chmod 750 sonarqube_deploy.sh
 
-        # Unable to get this to work
-        # ./sonarqube_deploy.sh
+        Unable to get this to work
+        ./sonarqube_deploy.sh
 
         if [[ $? -ne 0 ]];
         then
@@ -131,11 +131,13 @@ try {
   }
 
   stage('Run Code Through Sonarqube') {
-    node {
-      sh '''
-        echo "*************************Run Code Through Sonarqube*************************"
-      '''
-    }
+    checkout poll: false,
+    scm: [$class: 'GitSCM',
+    branches: [[name: 'refs/heads/master']],
+    doGenerateSubmoduleConfigurations: false,
+    extensions: [],
+    submoduleCfg: [],
+    userRemoteConfigs: [[url: 'https://github.com/l00144427/GitOps_Repo.git']]]
   }
 
   stage('Build & Tar Package') {
