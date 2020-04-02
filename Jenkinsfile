@@ -75,16 +75,16 @@ try {
   }
 
   stage('Execute The Ansible Scripts') {
-    withEnv(["PATH+ANSIBLE"=${tool 'Ansible'}])
+    #withEnv(["PATH+ANSIBLE"=${tool 'Ansible'}])
     node {
       sh '''
         cd ${WORKSPACE}/Ansible
 
         chmod 750 sonarqube_deploy.sh
 
-        which ansible
+        #which ansible
 
-        ansible --version
+        #ansible --version
 
         #./sonarqube_deploy.sh
 
@@ -134,15 +134,30 @@ try {
     }
   }
 
+
+
   stage('Run Code Through Sonarqube') {
-    checkout poll: false,
-    scm: [$class: 'GitSCM',
-    branches: [[name: 'refs/heads/master']],
-    doGenerateSubmoduleConfigurations: false,
-    extensions: [],
-    submoduleCfg: [],
-    userRemoteConfigs: [[url: 'https://github.com/l00144427/GitOps_Repo.git']]]
+    environment {
+      scannerHome = tool 'SonarQubeScanner'
+    }
+    steps {
+      withSonarQubeEnv('sonarqube') {
+        sh "${scannerHome}/bin/sonar-scanner"
+      }
+      timeout(time: 10, unit: 'MINUTES') {
+        waitForQualityGate abortPipeline: true
+      }
+    }
   }
+
+   #checkout poll: false,
+    #scm: [$class: 'GitSCM',
+   # branches: [[name: 'refs/heads/master']],
+   # doGenerateSubmoduleConfigurations: false,
+   # extensions: [],
+   # submoduleCfg: [],
+    #userRemoteConfigs: [[url: 'https://github.com/l00144427/GitOps_Repo.git']]]
+  #}
 
   stage('Build & Tar Package') {
     node {
