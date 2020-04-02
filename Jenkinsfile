@@ -134,12 +134,11 @@ try {
     }
   }
 
-
-
   stage('Run Code Through Sonarqube') {
     environment {
       scannerHome = tool 'SonarQubeScanner'
     }
+    node {
     step {
       withSonarQubeEnv('sonarqube') {
         sh "${scannerHome}/bin/sonar-scanner"
@@ -147,6 +146,7 @@ try {
       timeout(time: 10, unit: 'MINUTES') {
         waitForQualityGate abortPipeline: true
       }
+    }
     }
   }
 
