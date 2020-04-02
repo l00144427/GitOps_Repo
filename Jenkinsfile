@@ -140,7 +140,7 @@ try {
     environment {
       scannerHome = tool 'SonarQubeScanner'
     }
-    steps {
+    step {
       withSonarQubeEnv('sonarqube') {
         sh "${scannerHome}/bin/sonar-scanner"
       }
