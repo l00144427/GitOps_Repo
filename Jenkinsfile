@@ -135,20 +135,29 @@ try {
   }
 
   stage('Run Code Through Sonarqube') {
-    environment {
-      scannerHome = tool 'SonarQubeScanner'
-    }
     node {
+      sh '''
+        cd ${WORKSPACE}/
+        ./gradlew sonarqube \
+        -Dsonar.projectKey=GitOps_Repo \
+        -Dsonar.host.url=http://ec2-34-243-31-140.eu-west-1.compute.amazonaws.com:9000 \
+        -Dsonar.login=85143f76c61d8055a9218928b0c5a8c615850102
+  //  environment {
+  //    scannerHome = tool 'SonarQubeScanner'
+  //  }
+  //  node {
     //step {
-      withSonarQubeEnv('sonarqube') {
-        sh "${scannerHome}/bin/sonar-scanner"
-      }
+  //    withSonarQubeEnv('sonarqube') {
+  //      sh "${scannerHome}/bin/sonar-scanner"
+  //   }
     //}
     //step {
-      timeout(time: 10, unit: 'MINUTES') {
-        waitForQualityGate abortPipeline: true
+  //    timeout(time: 10, unit: 'MINUTES') {
+  //      waitForQualityGate abortPipeline: true
     //  }
-    }
+  //  }
+  //  }
+        '''
     }
   }
 
