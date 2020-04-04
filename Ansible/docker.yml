@@ -43,11 +43,11 @@
         state: present
       with_sequence: count={{ create_containers }}
 
-		#- name: Install Nginx
+    #- name: Install Nginx
     #  apt: pkg=nginx state=installed update_cache=true
     #  notify:
     #   - Start Nginx
 
-  #handlers:
-  # - name: Start Nginx
-  #   service: name=nginx state=started
+    #handlers:
+    # - name: Start Nginx
+    #   service: name=nginx state=started
