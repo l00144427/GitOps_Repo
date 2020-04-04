@@ -82,11 +82,11 @@ try {
 
         chmod 750 sonarqube_deploy.sh
 
-        #which ansible
+        which ansible
 
-        #ansible --version
+        ansible --version
 
-        #./sonarqube_deploy.sh
+        ./sonarqube_deploy.sh
 
         if [[ $? -ne 0 ]];
         then
@@ -120,6 +120,10 @@ try {
           echo "The script will now exit"
           exit 30
         fi
+
+        echo ""
+        echo "Running the JUnit tests"
+        echo ""
 
         ./gradlew test
 
