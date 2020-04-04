@@ -82,10 +82,6 @@ try {
 
         chmod 750 sonarqube_deploy.sh
 
-        which ansible
-
-        ansible --version
-
         ./sonarqube_deploy.sh
 
         if [[ $? -ne 0 ]];
