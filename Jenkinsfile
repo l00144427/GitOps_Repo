@@ -80,8 +80,6 @@ try {
       sh '''
         cd ${WORKSPACE}/Ansible
 
-        ansible all -m ping -vvvv
-
         chmod 750 sonarqube_deploy.sh
 
         ./sonarqube_deploy.sh
