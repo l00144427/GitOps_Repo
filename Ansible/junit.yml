@@ -4,7 +4,6 @@
   become: true
 
   tasks:
-    # Install JUnit
     - name: Install JUnit
       apt:
         name: junit
