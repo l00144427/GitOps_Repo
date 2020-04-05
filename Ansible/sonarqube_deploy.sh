@@ -3,7 +3,7 @@
 echo "Running the Java Ansible playbook"
 echo ""
 
-ansible-playbook java.yml -vvvv
+ansible-playbook java.yml
 
 if [[ $? -ne 0 ]];
 then
