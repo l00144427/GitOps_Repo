@@ -75,7 +75,6 @@ try {
   }
 
   stage('Execute The Ansible Scripts') {
-    // withEnv(["PATH+ANSIBLE"=${tool 'Ansible'}])
     node {
       sh '''
         cd ${WORKSPACE}/Ansible
@@ -140,8 +139,7 @@ try {
         cd ${WORKSPACE}/
         ./gradlew sonarqube \
         -Dsonar.projectKey=GitOps_Repo \
-        -Dsonar.host.url=http://ec2-34-243-31-140.eu-west-1.compute.amazonaws.com:9000 \
-# Add       -Dsonar.login=Sonarqube Token if required
+        -Dsonar.host.url=http://ec2-34-243-31-140.eu-west-1.compute.amazonaws.com:9000
         '''
     }
   }

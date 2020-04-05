@@ -9,7 +9,11 @@
         src: /var/jenkins_home/jdk-11.0.4_linux-x64_bin.tar.gz
         dest: /home/ubuntu/jdk-11.0.4_linux-x64_bin.tar.gz
 
-    - name: Install Java JDK 11
+    - stat:
+        path: /usr/bin/jdk-11.0.4
+      register: result
+
+    - name: Install Java JDK 11 if it doesn't already exist
       command: "{{ item }}"
       with_items:
         - gunzip jdk-11.0.4_linux-x64_bin.tar.gz
@@ -18,3 +22,16 @@
         - ln -s /usr/bin/jdk-11.0.4/bin/java /usr/bin/java
         - rm -rf jdk-11.0.4
         - rm -rf /home/ubuntu/jdk-11.0.4_linux-x64_bin.tar
+      when: result.stat.exists == false and result.stat.isdir == false
+
+    - name: Re-Install Java JDK 11
+      command: "{{ item }}"
+      with_items:
+        - rm -rf /usr/bin/jdk-11.0.4
+        - gunzip jdk-11.0.4_linux-x64_bin.tar.gz
+        - tar -xvf jdk-11.0.4_linux-x64_bin.tar
+        - mv jdk-11.0.4 /usr/bin/
+        - ln -s /usr/bin/jdk-11.0.4/bin/java /usr/bin/java
+        - rm -rf jdk-11.0.4
+        - rm -rf /home/ubuntu/jdk-11.0.4_linux-x64_bin.tar
+      when: result.stat.exists == true and result.stat.isdir == true
