@@ -5,6 +5,7 @@
 
   tasks:
     # Install JUnit
-    - apk:
-      name: junit
-      state: present
+    - name: Install JUnit
+      apt:
+        name: junit
+        state: present
