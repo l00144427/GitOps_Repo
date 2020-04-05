@@ -4,7 +4,7 @@
   become: true
 
   tasks:
-    - name: Install JUnit
-      command: "{{ item }}"
-      with_items:
-        - apt-get install -y junit
+    # Install JUnit
+    - apk:
+      name: junit
+      state: present
