@@ -2,7 +2,7 @@
 - hosts: all
   become: true
   vars_files:
-    - vars/default.yml
+    - ${WORKSPACE}/vars/default.yml
 
   tasks:
     - name: Install aptitude using apt
@@ -42,12 +42,3 @@
         command: "{{ default_container_command }}"
         state: present
       with_sequence: count={{ create_containers }}
-
-    #- name: Install Nginx
-    #  apt: pkg=nginx state=installed update_cache=true
-    #  notify:
-    #   - Start Nginx
-
-    #handlers:
-    # - name: Start Nginx
-    #   service: name=nginx state=started
