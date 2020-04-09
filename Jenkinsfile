@@ -19,8 +19,7 @@ try {
         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
       ]]) {
         ansiColor('xterm') {
-          // Using TF_LOG=DEBUG here to provide greater debug logs
-          sh 'TF_LOG=DEBUG terraform init'
+          sh 'terraform init'
         }
       }
     }
