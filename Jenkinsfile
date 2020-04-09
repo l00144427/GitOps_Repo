@@ -178,7 +178,7 @@ try {
             exit 30
           fi
 
-          ls -ltr
+          ls -ltr ${WORKSPACE}/packages
       '''
     }
   }
