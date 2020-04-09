@@ -81,7 +81,7 @@ try {
 
         chmod 750 sonarqube_deploy.sh
 
-        ./sonarqube_deploy.sh
+        # ./sonarqube_deploy.sh
 
         if [[ $? -ne 0 ]];
         then
