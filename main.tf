@@ -87,6 +87,13 @@ resource "aws_security_group" "default" {
     cidr_blocks = ["109.78.37.103/32"]
   }
 
+  ingress {
+    from_port   = 9000
+    to_port     = 9000
+    protocol    = "tcp"
+    cidr_blocks = ["sg-095576bc1688d6b7a (launch-wizard-2)"]
+  }
+
   egress {
     from_port   = 0
     to_port     = 65535
