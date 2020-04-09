@@ -91,7 +91,7 @@ resource "aws_security_group" "default" {
     from_port   = 9000
     to_port     = 9000
     protocol    = "tcp"
-    security_groups = ["SG-09557"]
+    security_groups = ["sg-095576bc1688d6b7a"]
   }
 
   egress {
