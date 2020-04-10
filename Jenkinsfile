@@ -73,7 +73,7 @@ try {
     }
   }
 
-  stage('Execute The Ansible Scripts') {
+  stage('Execute The Ansible playbooks') {
     node {
       sh '''
         cd ${WORKSPACE}/Ansible
@@ -91,16 +91,43 @@ try {
             exit 30
         fi
 
-        chmod 750 sonarqube_deploy.sh
+        echo "Running the JUnit Ansible playbook"
+        echo ""
 
-        # ./sonarqube_deploy.sh
+        ansible-playbook junit.yml
 
         if [[ $? -ne 0 ]];
         then
-          echo "The execution of the Ansible scripts did not work as expected"
-          echo ""
-          echo "The script will now exit"
-          exit 30
+            echo "The JUnit installation did not work as expected"
+            echo ""
+            echo "The script will now exit"
+            exit 30
+        fi
+
+        echo "Running the Docker Ansible playbook"
+        echo ""
+
+        ansible-playbook docker.yml
+
+        if [[ $? -ne 0 ]];
+        then
+            echo "The Docker installation did not work as expected"
+            echo ""
+            echo "The script will now exit"
+            exit 30
+        fi
+
+        echo "Running the Sonarqube Ansible playbook"
+        echo ""
+
+        ansible-playbook sonarqube.yml
+
+        if [[ $? -ne 0 ]];
+        then
+            echo "The Sonarqube installation did not work as expected"
+            echo ""
+            echo "The script will now exit"
+            exit 30
         fi
       '''
     }
