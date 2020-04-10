@@ -29,16 +29,7 @@ resource "aws_instance" "default" {
 
 # Ansible requires Python to be installed on the remote machine as well as the local machine.
 provisioner "remote-exec" {
-  inline = [
-     "sudo apt-get -qq install python -y",
-  ]
-}
-
-  # This is where we configure the instance with ansible-playbook
-  #  provisioner "local-exec" {
-  #    command = "sleep 120; ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -u ubuntu -i '${aws_instance.default.*.public_ip},' master.yml"
-  #  }
-  }  
+  inline = ["sudo apt-get -qq install python -y",]
 }
 
 # Create Security Group for EC2
@@ -53,24 +44,10 @@ resource "aws_security_group" "default" {
   }
 
   ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
     cidr_blocks = ["109.78.37.103/32"]
-  }
-
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
   }
 
   ingress {
@@ -81,15 +58,8 @@ resource "aws_security_group" "default" {
   }
 
   ingress {
-    from_port   = 9000
-    to_port     = 9000
-    protocol    = "tcp"
-    cidr_blocks = ["109.78.37.103/32"]
-  }
-
-  ingress {
-    from_port   = 9000
-    to_port     = 9000
+    from_port   = 0
+    to_port     = 65535
     protocol    = "tcp"
     security_groups = ["sg-095576bc1688d6b7a"]
   }
