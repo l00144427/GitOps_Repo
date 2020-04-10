@@ -6,5 +6,5 @@
   tasks:
     - name: Copy compiled code to the application server
       copy:
-        src: ${WORKSPACE}/packages/app_build-${BUILD_NUMBER}.tar.gz
+        src: /var/jenkins_home/workspace/Terraform_master/packages/app_build-${BUILD_NUMBER}.tar.gz
         dest: /home/ubuntu/app_build-${BUILD_NUMBER}.tar.gz
