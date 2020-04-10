@@ -35,6 +35,3 @@
 
     - name: Execute docker sonarqube run command in container
       command: docker run --restart always -d --name sonarqube -p 9000:9000 sonarqube
-
-    #- name: Execute Maven clean install
-    #  command: mvn clean install sonar:sonar
