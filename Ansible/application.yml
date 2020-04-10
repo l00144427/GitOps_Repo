@@ -1,0 +1,10 @@
+---
+- hosts: all
+  remote_user: root
+  become: true
+
+  tasks:
+    - name: Copy compiled code to the application server
+      copy:
+        src: ${WORKSPACE}/packages/app_build-${BUILD_NUMBER}.tar.gz
+        dest: /home/ubuntu/app_build-${BUILD_NUMBER}.tar.gz
