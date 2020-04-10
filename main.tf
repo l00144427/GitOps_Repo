@@ -27,9 +27,11 @@ resource "aws_instance" "default" {
     host        = "default"
     user        = "ubuntu"
 
-# Ansible requires Python to be installed on the remote machine as well as the local machine.
-provisioner "remote-exec" {
-  inline = ["sudo apt-get -qq install python -y",]
+    # Ansible requires Python to be installed on the remote machine as well as the local machine.
+    provisioner "remote-exec" {
+      inline = ["sudo apt-get -qq install python -y"]
+    }
+  }
 }
 
 # Create Security Group for EC2
