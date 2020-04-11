@@ -247,7 +247,7 @@ try {
 	   	sh '''
 	    	echo "*************************Deploy The Application Code*************************"
         echo ""
-        echo "Running the Java Ansible playbook"
+        echo "Running the Application Ansible playbook"
         echo ""
 
         cd ${WORKSPACE}/Ansible

@@ -8,3 +8,10 @@
       copy:
         src: /var/jenkins_home/workspace/Terraform_master/packages/app_build-${BUILD_NUMBER}.tar.gz
         dest: /home/ubuntu/app_build-${BUILD_NUMBER}.tar.gz
+
+    - name: Extract the application code
+      command: "{{ item }}"
+      with_items:
+        - gunzip app_build-${BUILD_NUMBER}.tar.gz
+        - tar -xvf app_build-${BUILD_NUMBER}.tar
+        - ls -lrt
