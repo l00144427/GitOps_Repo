@@ -33,16 +33,5 @@
     - name: Execute docker pull in container
       command: docker pull sonarqube
 
-    - name: Check for containers that actually exist
-      shell: 'docker ps -aq --filter "name=sonarqube"'
-      with_items:
-        - '{{ previous_command.stdout_lines }}'
-      register: found_containers
-
-    - name: Remove the containers found by the above command
-      shell: 'docker rm -fv sonarqube'
-      with_items: '{{ found_containers.results }}'
-      when: item.stdout
-
     - name: Check if Sonarqube container is already running. If the container doesn't exists it will create it and run. If the container is stopped it will be started
       command: docker container inspect sonarqube > /dev/null 2>&1 || docker run -d -P --name sonarqube -p 9000:9000 sonarqube
