@@ -178,7 +178,7 @@ try {
         cd ${WORKSPACE}/
         ./gradlew sonarqube \
         -Dsonar.projectKey=GitOps_Repo \
-        -Dsonar.host.url=http://172.31.3.233:9000
+        -Dsonar.host.url=http://ec2-34-245-16-29.eu-west-1.compute.amazonaws.com:9000
         '''
     }
   }
