@@ -33,5 +33,5 @@
     - name: Execute docker pull in container
       command: docker pull sonarqube
 
-    - name: Check if Sonarqube container is already running. If the container doesn't exists it will create it and run. If the container is stopped it just start it
+    - name: Check if Sonarqube container is already running. If the container doesn't exists it will create it and run. If the container is stopped it will be started
       command: docker start sonarqube || docker run --restart always -d --name sonarqube -p 9000:9000 sonarqube
