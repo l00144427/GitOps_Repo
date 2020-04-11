@@ -45,4 +45,4 @@
       when: item.stdout
 
     - name: Check if Sonarqube container is already running. If the container doesn't exists it will create it and run. If the container is stopped it will be started
-      command: docker run -d -P --name sonarqube -p 9000:9000 sonarqube
+      command: docker container inspect sonarqube > /dev/null 2>&1 || docker run -d -P --name sonarqube -p 9000:9000 sonarqube
