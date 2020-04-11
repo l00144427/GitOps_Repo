@@ -69,7 +69,7 @@ resource "aws_security_group" "default" {
   egress {
     from_port   = 0
     to_port     = 65535
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    protocol    = "All"
+    security_groups = ["sg-095576bc1688d6b7a"]
   }
 }
