@@ -81,7 +81,7 @@ try {
         echo "Running the Java Ansible playbook"
         echo ""
 
-        # ansible-playbook java.yml
+        ansible-playbook java.yml
 
         if [[ $? -ne 0 ]];
         then
@@ -91,23 +91,10 @@ try {
             exit 30
         fi
 
-        echo "Running the JUnit Ansible playbook"
-        echo ""
-
-        # ansible-playbook junit.yml
-
-        if [[ $? -ne 0 ]];
-        then
-            echo "The JUnit installation did not work as expected"
-            echo ""
-            echo "The script will now exit"
-            exit 30
-        fi
-
         echo "Running the Docker Ansible playbook"
         echo ""
 
-        # ansible-playbook docker.yml
+        ansible-playbook docker.yml
 
         if [[ $? -ne 0 ]];
         then
@@ -120,11 +107,24 @@ try {
         echo "Running the Sonarqube Ansible playbook"
         echo ""
 
-#        ansible-playbook sonarqube.yml
+        ansible-playbook sonarqube.yml
 
         if [[ $? -ne 0 ]];
         then
             echo "The Sonarqube installation did not work as expected"
+            echo ""
+            echo "The script will now exit"
+            exit 30
+        fi
+
+        echo "Running the JUnit Ansible playbook"
+        echo ""
+
+        ansible-playbook junit.yml
+
+        if [[ $? -ne 0 ]];
+        then
+            echo "The JUnit installation did not work as expected"
             echo ""
             echo "The script will now exit"
             exit 30
@@ -178,7 +178,7 @@ try {
         cd ${WORKSPACE}/
         ./gradlew sonarqube \
         -Dsonar.projectKey=GitOps_Repo \
-        -Dsonar.host.url=http://ec2-34-245-16-29.eu-west-1.compute.amazonaws.com:9000
+        -Dsonar.host.url=http://172.31.3.233:9000
         '''
     }
   }
