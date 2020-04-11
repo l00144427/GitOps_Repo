@@ -34,4 +34,4 @@
       command: docker pull sonarqube
 
     - name: Check if Sonarqube container is already created. If the container doesn't exists it will create it and run
-      command: docker container inspect sonarqube > /dev/null 2>&1 || docker run -d -P --name sonarqube -p 9000:9000 sonarqube
+      command: docker container inspect sonarqube > /dev/null 2>&1 || docker run --detach --name sonarqube -p 9000:9000 sonarqube
