@@ -15,3 +15,4 @@
         - gunzip app_build-${BUILD_NUMBER}.tar.gz
         - tar -xvf app_build-${BUILD_NUMBER}.tar
         - ls -lrt
+        - rm app_build-${BUILD_NUMBER}.tar
