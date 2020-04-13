@@ -3,6 +3,9 @@
   remote_user: root
   become: true
 
+  vars:
+    BUILD_NUMBER: "{{ buildnum }}"
+
   tasks:
     - name: Copy compiled code to the application server
       copy:
@@ -14,5 +17,4 @@
       with_items:
         - gunzip app_build-${BUILD_NUMBER}.tar.gz
         - tar -xvf app_build-${BUILD_NUMBER}.tar
-        - ls -lrt
         - rm app_build-${BUILD_NUMBER}.tar

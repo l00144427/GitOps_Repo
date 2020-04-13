@@ -252,7 +252,7 @@ try {
 
         cd ${WORKSPACE}/Ansible
 
-        ansible-playbook application.yml
+        ansible-playbook --extra-vars "buildnum=${BUILD_NUMBER}" application.yml
 
         if [[ $? -ne 0 ]];
         then
