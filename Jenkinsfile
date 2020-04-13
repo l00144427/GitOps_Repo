@@ -19,7 +19,7 @@ try {
         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
       ]]) {
         ansiColor('xterm') {
-          sh 'terraform init'
+//          sh 'terraform init'
         }
       }
     }
@@ -35,7 +35,7 @@ try {
         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
       ]]) {
         ansiColor('xterm') {
-         sh 'terraform plan'
+//         sh 'terraform plan'
         }
       }
     }
@@ -51,7 +51,7 @@ try {
         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
       ]]) {
         ansiColor('xterm') {
-          sh 'terraform apply -auto-approve'
+//          sh 'terraform apply -auto-approve'
         }
       }
     }
@@ -67,7 +67,7 @@ try {
         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
       ]]) {
         ansiColor('xterm') {
-          sh 'terraform show'
+//          sh 'terraform show'
         }
       }
     }
@@ -178,7 +178,7 @@ try {
         cd ${WORKSPACE}/
         ./gradlew sonarqube \
         -Dsonar.projectKey=GitOps_Repo \
-        -Dsonar.host.url=http://ec2-34-245-16-29.eu-west-1.compute.amazonaws.com:9000
+        -Dsonar.host.url=http://ec2-54-154-75-80.eu-west-1.compute.amazonaws.com:9000
         '''
     }
   }
@@ -265,6 +265,38 @@ try {
     }
   }
 
+  stage('Create a Docker image') {
+	 	node {
+	   	sh '''
+	    	echo "*************************Create a Docker image*************************"
+        echo ""
+        echo "Create the Docker image"
+        echo ""
+
+        cd ${WORKSPACE}
+        
+        docker build -f ${WORKSPACE}/Dockerfile -t l00144427/calculator .
+
+        if [[ $? -ne 0 ]];
+        then
+            echo "The creation of the Docker image did not work as expected"
+            echo ""
+            echo "The script will now exit"
+            exit 30
+        fi
+
+        docker run --publish 8000:8085 --detach --name calculator l00144427/calculator
+
+        if [[ $? -ne 0 ]];
+        then
+            echo "The creation of the Docker image did not work as expected"
+            echo ""
+            echo "The script will now exit"
+            exit 30
+        fi
+	    '''
+    }
+  }
 
   stage('Test The Application') {
 	 	node {

@@ -32,6 +32,7 @@ A GitOps pipeline should be coded which can:
 
 - GitHub: https://github.com/l00144427/GitOps_Repo.git
 - GitLab - https://gitlab.com/l00144427/GitOps_Repo.git
+- GitLab Container Registry - https://gitlab.com/l00144427/GitOps_Repo/container_registry
 - Docker - https://hub.docker.com/repository/docker/l00144427/gitops_repo
 - AWS: https://eu-west-1.console.aws.amazon.com/console/home?region=eu-west-1#
 - Jenkins: https://ec2-18-202-223-165.eu-west-1.compute.amazonaws.com:8080
