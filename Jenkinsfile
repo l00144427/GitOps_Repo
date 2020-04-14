@@ -273,9 +273,9 @@ try {
         echo "Create the Docker image"
         echo ""
 
-        cd ${WORKSPACE}
-        
-        docker build -f ${WORKSPACE}/Dockerfile -t l00144427/calculator .
+        cd ${WORKSPACE}/Ansible
+
+        ansible-playbook docker_image.yml
 
         if [[ $? -ne 0 ]];
         then
