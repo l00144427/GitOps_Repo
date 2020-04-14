@@ -1,2 +1,3 @@
 FROM openjdk:15
-ENTRYPOINT [ "/usr/bin/java", "-jar", "/home/ubuntu/calculator.jar" ]
+COPY /home/ubuntu/calculator.jar /
+ENTRYPOINT [ "/usr/bin/java", "-jar", "/calculator.jar" ]
