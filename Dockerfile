@@ -1,2 +1,2 @@
 FROM ubuntu:16.04
-ENTRYPOINT [ "java", "-jar", "/home/ubuntu/calculator.jar" ]
+ENTRYPOINT [ "/usr/bin/java", "-jar", "/home/ubuntu/calculator.jar" ]
