@@ -1,0 +1,10 @@
+---
+- hosts: all
+  remote_user: root
+  become: true
+
+  tasks:
+    - name: Upload the Docker image
+      command: "{{ item }}"
+      with_items:
+        - docker ps -a

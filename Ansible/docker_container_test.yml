@@ -1,0 +1,10 @@
+---
+- hosts: all
+  remote_user: root
+  become: true
+
+  tasks:
+    - name: Start Docker container as a test
+      command: "{{ item }}"
+      with_items:
+        - docker run --name calculator l00144427/calculator
