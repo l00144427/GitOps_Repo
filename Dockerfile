@@ -1,2 +1,2 @@
-FROM ubuntu:16.04
+FROM openjdk:15
 ENTRYPOINT [ "/usr/bin/java", "-jar", "/home/ubuntu/calculator.jar" ]
