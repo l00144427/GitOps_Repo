@@ -6,7 +6,7 @@
   tasks:
     - name: Copy Dockerfile
       copy:
-        src: ${WORKSPACE}/Dockerfile
+        src: /var/jenkins_home/workspace/Terraform_master/Dockerfile
         dest: /home/ubuntu/Dockerfile
 
     - name: Create Docker image
