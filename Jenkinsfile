@@ -276,24 +276,21 @@ try {
         cd ${WORKSPACE}/Ansible
 
         ansible-playbook docker_image.yml
+	    '''
+    }
+  }
 
-        if [[ $? -ne 0 ]];
-        then
-            echo "The creation of the Docker image did not work as expected"
-            echo ""
-            echo "The script will now exit"
-            exit 30
-        fi
+  stage('Upload the Docker image') {
+	 	node {
+	   	sh '''
+	    	echo "*************************Upload the Docker image*************************"
+        echo ""
+        echo "Upload the Docker image"
+        echo ""
 
-        docker run --publish 8000:8085 --detach --name calculator l00144427/calculator
+        cd ${WORKSPACE}/Ansible
 
-        if [[ $? -ne 0 ]];
-        then
-            echo "The creation of the Docker image did not work as expected"
-            echo ""
-            echo "The script will now exit"
-            exit 30
-        fi
+        ansible-playbook docker_image_upload.yml
 	    '''
     }
   }
@@ -302,6 +299,13 @@ try {
 	 	node {
 	   	sh '''
 	    	echo "*************************Test The Application*************************"
+        echo ""
+        echo "Test the Docker container"
+        echo ""
+
+        cd ${WORKSPACE}/Ansible
+
+        #ansible-playbook docker_container_test.yml
 	    '''
     }
   }

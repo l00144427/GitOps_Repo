@@ -19,7 +19,3 @@
       with_items:
         - docker build -f /home/ubuntu/Dockerfile -t l00144427/calculator .
 
-    - name: Start Docker container
-      command: "{{ item }}"
-      with_items:
-        - docker run --name calculator l00144427/calculator
