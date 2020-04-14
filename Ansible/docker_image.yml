@@ -13,4 +13,4 @@
       command: "{{ item }}"
       with_items:
         - docker build -f /home/ubuntu/Dockerfile -t l00144427/calculator .
-        - docker run --publish 8000:8085 --detach --name calculator l00144427/calculator
+        - docker run --publish 8000:8085 --detach --name /home/ubuntu/calculator l00144427/calculator
