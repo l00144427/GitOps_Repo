@@ -22,4 +22,4 @@
     - name: Start Docker container
       command: "{{ item }}"
       with_items:
-        - docker run --detach --name calculator l00144427/calculator
+        - docker run --name calculator l00144427/calculator
