@@ -4,6 +4,11 @@
   become: true
 
   tasks:
+    - name: Remove the previous calculator container
+      command: "{{ item }}"
+      with_items:
+        - docker rm -f calculator
+
     - name: Copy Dockerfile to application server
       copy:
         src: /var/jenkins_home/workspace/Terraform_master/Dockerfile
