@@ -4,15 +4,10 @@
   become: true
 
   tasks:
-    - name: Update repository files on remote server
-      copy:
-        src: /etc/apk/repositories
-        dest: /etc/apk/repositories
-
     - name: Update repositories on remote server
       command: "{{ item }}"
       with_items:
-      - apk update     
+      - apt-get update     
 
     - name: Copy Java JDK file
       copy:
