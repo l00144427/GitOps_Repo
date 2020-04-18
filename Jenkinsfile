@@ -21,7 +21,7 @@ try {
         ansiColor('xterm') {
         sh '''
           echo "Running Terraform init at `date`"
-          terraform init
+          #terraform init
         '''
         }
       }
@@ -40,7 +40,7 @@ try {
         ansiColor('xterm') {
         sh '''
            echo "Running Terraform plan at `date`"
-           terraform plan
+           #terraform plan
         '''
         }
       }
@@ -59,7 +59,7 @@ try {
         ansiColor('xterm') {
         sh '''
           echo "Running Terraform apply at `date`"
-          terraform apply -auto-approve
+          #terraform apply -auto-approve
         '''
         }
       }
@@ -78,7 +78,7 @@ try {
         ansiColor('xterm') {
         sh '''
           echo "Running Terraform show at `date`"
-          terraform show
+          #terraform show
         '''
         }
       }
@@ -93,7 +93,7 @@ try {
         echo "Running the Java Ansible playbook at `date`"
         echo ""
 
-        ansible-playbook -vvvv java.yml
+        ansible-playbook java.yml
 
         if [[ $? -ne 0 ]];
         then
