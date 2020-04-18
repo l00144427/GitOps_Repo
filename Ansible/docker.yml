@@ -6,10 +6,10 @@
 
   tasks:
     - name: Install aptitude using apt
-      apt: name=aptitude state=latest update_cache=yes force_apt_get=yes
+      apt: name=aptitude state=present update_cache=yes force_apt_get=yes
 
     - name: Install required system packages
-      apt: name={{ item }} state=latest update_cache=yes
+      apt: name={{ item }} state=present update_cache=yes
       loop: [ 'apt-transport-https', 'ca-certificates', 'curl', 'software-properties-common', 'python3-pip', 'virtualenv', 'python3-setuptools']
 
     - name: Add Docker GPG apt Key
@@ -23,16 +23,17 @@
         state: present
 
     - name: Update apt and install docker-ce
-      apt: update_cache=yes name=docker-ce state=latest
+      apt: update_cache=yes name=docker-ce state=present
 
     - name: Install Docker Module for Python
       pip:
         name: docker
+        state: present
 
-    - name: Pull Docker image
-      docker_image:
-        name: "{{ default_container_image }}"
-        source: pull
+    #- name: Pull Docker image
+    #  docker_image:
+    #    name: "{{ default_container_image }}"
+    #    source: pull
 
     # Creates the number of containers defined by the variable create_containers, using values from vars file
     - name: Create containers
