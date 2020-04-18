@@ -119,7 +119,7 @@ try {
         echo "Running the Sonarqube Ansible playbook at `date`"
         echo ""
 
-#        ansible-playbook sonarqube.yml
+        ansible-playbook sonarqube.yml
 
         if [[ $? -ne 0 ]];
         then
