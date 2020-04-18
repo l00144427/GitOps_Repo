@@ -19,7 +19,10 @@ try {
         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
       ]]) {
         ansiColor('xterm') {
-//          sh 'terraform init'
+        sh '''
+          echo "Running Terraform init at `date`"
+          terraform init
+        '''
         }
       }
     }
@@ -35,7 +38,10 @@ try {
         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
       ]]) {
         ansiColor('xterm') {
-//         sh 'terraform plan'
+        sh '''
+           echo "Running Terraform plan at `date`"
+           terraform plan
+        '''
         }
       }
     }
@@ -51,7 +57,10 @@ try {
         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
       ]]) {
         ansiColor('xterm') {
-//          sh 'terraform apply -auto-approve'
+        sh '''
+          echo "Running Terraform apply at `date`"
+          terraform apply -auto-approve
+        '''
         }
       }
     }
@@ -67,7 +76,10 @@ try {
         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
       ]]) {
         ansiColor('xterm') {
-//          sh 'terraform show'
+        sh '''
+          echo "Running Terraform show at `date`"
+          terraform show
+        '''
         }
       }
     }
