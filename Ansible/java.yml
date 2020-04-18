@@ -4,6 +4,16 @@
   become: true
 
   tasks:
+    - name: Update repository files on remote server
+      copy:
+        src: /etc/apk/repositories
+        dest: /etc/apk/repositories
+
+    - name: Update repositories on remote server
+      command: "{{ item }}"
+      with_items:
+      - apk update     
+
     - name: Copy Java JDK file
       copy:
         src: /var/jenkins_home/jdk-11.0.4_linux-x64_bin.tar.gz

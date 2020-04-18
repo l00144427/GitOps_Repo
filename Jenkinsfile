@@ -78,7 +78,7 @@ try {
       sh '''
         cd ${WORKSPACE}/Ansible
 
-        echo "Running the Java Ansible playbook"
+        echo "Running the Java Ansible playbook at `date`"
         echo ""
 
         ansible-playbook java.yml
@@ -91,7 +91,7 @@ try {
             exit 30
         fi
 
-        echo "Running the Docker Ansible playbook"
+        echo "Running the Docker Ansible playbook at `date`"
         echo ""
 
         ansible-playbook docker.yml
@@ -104,7 +104,7 @@ try {
             exit 30
         fi
 
-        echo "Running the Sonarqube Ansible playbook"
+        echo "Running the Sonarqube Ansible playbook at `date`"
         echo ""
 
 #        ansible-playbook sonarqube.yml
@@ -117,7 +117,7 @@ try {
             exit 30
         fi
 
-        echo "Running the JUnit Ansible playbook"
+        echo "Running the JUnit Ansible playbook at `date`"
         echo ""
 
         ansible-playbook junit.yml
@@ -140,7 +140,7 @@ try {
         cd ${WORKSPACE}/
 
         echo ""
-        echo "Compiling the Code & the JUnit tests"
+        echo "Compiling the Code & the JUnit tests at `date`"
         echo ""
 
         chmod 755 ./gradlew
@@ -156,7 +156,7 @@ try {
         fi
 
         echo ""
-        echo "Running the JUnit tests"
+        echo "Running the JUnit tests at `date`"
         echo ""
 
         ./gradlew test
@@ -175,6 +175,9 @@ try {
   stage('Run Code Through Sonarqube') {
     node {
       sh '''
+       echo ""
+        echo "Running the Code Through Sonarqube at `date`"
+        echo ""
         cd ${WORKSPACE}/
         ./gradlew sonarqube \
         -Dsonar.projectKey=GitOps_Repo \
@@ -191,7 +194,7 @@ try {
           cd ${WORKSPACE}/build/libs
 
           echo ""
-          echo "Adding the compiled code into a tar package"
+          echo "Adding the compiled code into a tar package at `date`"
           echo ""
 
           tar -cvf ${WORKSPACE}/packages/app_build-${BUILD_NUMBER}.tar *
@@ -205,7 +208,7 @@ try {
           fi
 
           echo ""
-          echo "Gzipping the tar package"
+          echo "Gzipping the tar package at `date`"
           echo ""
 
           gzip ${WORKSPACE}/packages/app_build-${BUILD_NUMBER}.tar
@@ -230,6 +233,9 @@ try {
     }
     node {
       sh('''
+        echo ""
+        echo "Loading The Code Package To GitLab at `date`"
+        echo ""
         git config user.name 'l00144427'
         git config user.email 'l00144427@student.lyit.ie'
         git config --local credential.helper "!f() { echo username=\\l00144427@student.lyit.ie; echo password=\\$GIT_PASSWORD; }; f"
@@ -247,7 +253,7 @@ try {
 	   	sh '''
 	    	echo "*************************Deploy The Application Code*************************"
         echo ""
-        echo "Running the Application Ansible playbook"
+        echo "Running the Application Ansible playbook at `date`"
         echo ""
 
         cd ${WORKSPACE}/Ansible
@@ -270,7 +276,7 @@ try {
 	   	sh '''
 	    	echo "*************************Create a Docker image*************************"
         echo ""
-        echo "Create the Docker image"
+        echo "Create the Docker image at `date`"
         echo ""
 
         cd ${WORKSPACE}/Ansible
@@ -285,7 +291,7 @@ try {
 	   	sh '''
 	    	echo "*************************Upload the Docker image*************************"
         echo ""
-        echo "Upload the Docker image"
+        echo "Upload the Docker image at `date`"
         echo ""
 
         cd ${WORKSPACE}/Ansible
@@ -300,7 +306,7 @@ try {
 	   	sh '''
 	    	echo "*************************Test The Application*************************"
         echo ""
-        echo "Test the Docker container"
+        echo "Test the Docker container at `date`"
         echo ""
 
         cd ${WORKSPACE}/Ansible
