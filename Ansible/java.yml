@@ -16,7 +16,7 @@
 
     - stat:
         path: /usr/bin/jdk-11.0.4
-        register: result
+      register: result
 
     - name: Install Java JDK 11 if it doesn't already exist
       command: "{{ item }}"
