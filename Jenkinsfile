@@ -93,7 +93,7 @@ try {
         echo "Running the Java Ansible playbook at `date`"
         echo ""
 
-        ansible-playbook java.yml
+        ansible-playbook java.yml -l 172.31.22.76
 
         if [[ $? -ne 0 ]];
         then
@@ -106,7 +106,7 @@ try {
         echo "Running the Docker Ansible playbook at `date`"
         echo ""
 
-        ansible-playbook docker.yml
+        ansible-playbook docker.yml -l 172.31.22.76
 
         if [[ $? -ne 0 ]];
         then
@@ -119,7 +119,7 @@ try {
         echo "Running the Sonarqube Ansible playbook at `date`"
         echo ""
 
-#        ansible-playbook sonarqube.yml
+#        ansible-playbook sonarqube.yml -l 172.31.22.76
 
         if [[ $? -ne 0 ]];
         then
@@ -132,7 +132,7 @@ try {
         echo "Running the JUnit Ansible playbook at `date`"
         echo ""
 
-        ansible-playbook junit.yml
+        ansible-playbook junit.yml -l 172.31.22.76
 
         if [[ $? -ne 0 ]];
         then
@@ -270,7 +270,7 @@ try {
 
         cd ${WORKSPACE}/Ansible
 
-        ansible-playbook --extra-vars "buildnum=${BUILD_NUMBER}" application.yml
+        ansible-playbook --extra-vars "buildnum=${BUILD_NUMBER}" application.yml  -l 172.31.22.76
 
         if [[ $? -ne 0 ]];
         then
@@ -293,7 +293,7 @@ try {
 
         cd ${WORKSPACE}/Ansible
 
-        ansible-playbook docker_image.yml
+        ansible-playbook docker_image.yml  -l 172.31.22.76
 	    '''
     }
   }
@@ -308,7 +308,7 @@ try {
 
         cd ${WORKSPACE}/Ansible
 
-        ansible-playbook docker_image_upload.yml
+        ansible-playbook docker_image_upload.yml  -l 172.31.22.76
 	    '''
     }
   }
@@ -323,7 +323,7 @@ try {
 
         cd ${WORKSPACE}/Ansible
 
-        #ansible-playbook docker_container_test.yml
+        #ansible-playbook docker_container_test.yml  -l 172.31.22.76
 	    '''
     }
   }
