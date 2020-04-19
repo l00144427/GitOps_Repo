@@ -4,6 +4,9 @@
   vars_files:
     - vars/default.yml
 
+  vars:
+    SONARQUBE_PASSWORD: "{{ sonarqube_password }}"
+
   tasks:
     - name: Ensure sonarqube group exists
       group:
@@ -13,7 +16,7 @@
     - name: Create a Sonarqube user
       user:
         name: sonarqube
-        password: YhsqiF.YODrJI
+        password: {{ SONARQUBE_PASSWORD }}
         groups: docker, sudo, sonarqube
         state: present
         shell: /bin/bash
