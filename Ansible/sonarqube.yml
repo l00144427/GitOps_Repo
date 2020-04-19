@@ -8,12 +8,12 @@
     SONARQUBE_PASSWORD: "{{ sonarqube_password }}"
 
   tasks:
-    - name: Ensure sonarqube group exists
+    - name: Ensure a sonarqube group exists
       group:
         name: sonarqube
         state: present
 
-    - name: Create a Sonarqube user
+    - name: Ensure a sonarqube user exists
       user:
         name: sonarqube
         groups: docker, sudo, sonarqube
