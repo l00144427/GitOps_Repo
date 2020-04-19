@@ -93,7 +93,7 @@ try {
         echo "Running the Java Ansible playbook at `date`"
         echo ""
 
-        ansible-playbook java.yml
+#        ansible-playbook java.yml
 
         if [[ $? -ne 0 ]];
         then
@@ -106,7 +106,7 @@ try {
         echo "Running the Docker Ansible playbook at `date`"
         echo ""
 
-        ansible-playbook docker.yml
+#        ansible-playbook docker.yml
 
         if [[ $? -ne 0 ]];
         then

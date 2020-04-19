@@ -16,7 +16,6 @@
     - name: Create a Sonarqube user
       user:
         name: sonarqube
-        password: {{ SONARQUBE_PASSWORD }}
         groups: docker, sudo, sonarqube
         state: present
         shell: /bin/bash
