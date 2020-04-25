@@ -18,7 +18,7 @@ Emmet O'Donnell & Ruth G. Lennon
 A GitOps pipeline should be coded which can:
 
 - Be created automatically
-- On a commit from a Developer the infrastructure and application code should be taken from a GitHub repository
+- The infrastructure and application code should be taken from a GitHub repository on a commit from a Developer
 - Any infrastructure should be created if not already in place and updated if changes are required
 - The application code should be run through a series of tests including JUnit & Sonarqube
 - On success of those tests the code should be packaged & deployed to a GitLab repository
