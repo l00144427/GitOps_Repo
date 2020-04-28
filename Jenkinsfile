@@ -21,7 +21,7 @@ try {
         ansiColor('xterm') {
         sh '''
           echo "Running Terraform init at `date`"
-          #terraform init
+            terraform init
         '''
         }
       }
@@ -40,7 +40,8 @@ try {
         ansiColor('xterm') {
         sh '''
            echo "Running Terraform plan at `date`"
-           #terraform plan
+           terraform plan
+           terraform graph | dot -Tsvg > graph.svg
         '''
         }
       }
@@ -59,7 +60,7 @@ try {
         ansiColor('xterm') {
         sh '''
           echo "Running Terraform apply at `date`"
-          #terraform apply -auto-approve
+          terraform apply -auto-approve
         '''
         }
       }
@@ -78,7 +79,7 @@ try {
         ansiColor('xterm') {
         sh '''
           echo "Running Terraform show at `date`"
-          #terraform show
+          terraform show
         '''
         }
       }
