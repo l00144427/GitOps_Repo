@@ -35,11 +35,6 @@
     - name: Execute docker pull in container
       command: docker pull sonarqube
 
-    #- name: Remove Sonarqube container
-    #  command: docker rm -f sonarqube
-
     - name: Start the Sonarqube container
       command: docker start sonarqube
-      
-    #- name: Start the Sonarqube container
-    #  command: || docker run --detach --name sonarqube -p 9000:9000 --restart always sonarqube
+
