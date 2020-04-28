@@ -41,7 +41,7 @@ try {
         sh '''
            echo "Running Terraform plan at `date`"
            terraform plan
-           terraform graph | dot -Tsvg > graph.svg
+           terraform graph > graph.svg
         '''
         }
       }
