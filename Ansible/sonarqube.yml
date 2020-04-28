@@ -32,11 +32,16 @@
     - name: Create sonarqube_logs volume
       command: docker volume create --name sonarqube_logs
 
-    #- name: Execute docker pull in container
-    #  command: docker pull sonarqube
+    - name: Execute docker pull in container
+      command: docker --version
+
+    - name: Execute docker pull in container
+      command: docker pull sonarqube
 
     #- name: Remove Sonarqube container
     #  command: docker rm -f sonarqube
 
+
+
     - name: Start the Sonarqube container
-      command: docker start sonarqube || docker run --detach --name sonarqube -p 9000:9000 sonarqube
+      command: docker start sonarqube || docker run --detach --name sonarqube -p 9000:9000 --restart always sonarqube
