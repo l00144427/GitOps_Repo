@@ -41,7 +41,6 @@ try {
         sh '''
            echo "Running Terraform plan at `date`"
            terraform plan
-           terraform graph > graph.svg
         '''
         }
       }
