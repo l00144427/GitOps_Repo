@@ -190,7 +190,6 @@ try {
         echo ""
         echo "Running the Code Through Sonarqube at `date`"
         echo ""
-        sleep 10
         cd ${WORKSPACE}/
         ./gradlew sonarqube \
         -Dsonar.projectKey=GitOps_Repo \
